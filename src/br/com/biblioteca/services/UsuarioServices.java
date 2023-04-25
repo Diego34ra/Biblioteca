@@ -23,15 +23,14 @@ public class UsuarioServices {
 	        nameFiles.add(arquivos[i].getName());
 	    }
 	    for(String nameString : nameFiles) {
-	    	try {
-				FileInputStream fileInputStream = new FileInputStream(nameString);
-				ObjectInputStream stream = new ObjectInputStream(fileInputStream);
-				usuarios.add((Usuario) stream.readObject());
-				
-			} catch (Exception erro) {
-				System.out.println("Falha na leitura \n" + erro.toString());
-				return null;
-			}
+	    	try {             
+                    FileInputStream fileInputStream = new FileInputStream(nameString);
+                    ObjectInputStream stream = new ObjectInputStream(fileInputStream);
+                    usuarios.add((Usuario) stream.readObject());
+                } catch (Exception erro) {
+                    System.out.println("Falha na leitura \n" + erro.toString());
+                    return null;
+                }
 	    }
 		return usuarios;
 	}

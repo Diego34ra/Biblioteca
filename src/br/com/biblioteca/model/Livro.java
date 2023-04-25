@@ -71,8 +71,8 @@ public class Livro extends Obra implements DAO{
 	
 	
 	public Livro(String tipo, String autores, String titulo, String area, String editora, int ano,
-			int edicao, int numFolhas) {
-		super(tipo);
+			int edicao, int numFolhas, Boolean digital) {
+		super(tipo, digital);
 		this.autores = autores;
 		this.titulo = titulo;
 		this.area = area;

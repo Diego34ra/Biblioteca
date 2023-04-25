@@ -55,13 +55,13 @@ public class Emprestimo implements DAO {
 	}
 	
 	public Emprestimo(String dataEmprestimo, String horaEmprestimo, Livro livro, Usuario usuario) {
-		super();
-		Random random = new Random();
-		this.codigo = (long) (random.nextDouble() * 10000000000L);
-		this.dataEmprestimo = dataEmprestimo;
-		this.horaEmprestimo = horaEmprestimo;
-		this.livro = livro;
-		this.usuario = usuario;
+            super();
+            Random random = new Random();
+            this.codigo = (long) (random.nextDouble() * 10000000000L);
+            this.dataEmprestimo = dataEmprestimo;
+            this.horaEmprestimo = horaEmprestimo;
+            this.livro = livro;
+            this.usuario = usuario;
 	}
 	
 	public Emprestimo() {

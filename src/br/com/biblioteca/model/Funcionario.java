@@ -11,9 +11,9 @@ public class Funcionario extends Usuario{
 	public void setSalario(double salario) {
 		this.salario = salario;
 	}
-
-	public Funcionario(int idade, String nome, String sexo, String telefone, double salario) {
-		super(idade, nome, sexo, telefone);
+        
+	public Funcionario(int idade, String nome, String sexo, String telefone, double salario, String senha) {
+		super(idade, nome, sexo, telefone, senha);
 		this.salario = salario;
 	}
 

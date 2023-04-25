@@ -16,8 +16,10 @@ public class Professor extends Funcionario{
 		this.especialidade = especialidade;
 	}
 	
-	public Professor(int idade, String nome, String sexo, String telefone, double salario, String especialidade) {
-		super(idade, nome, sexo, telefone, salario);
+        
+        
+	public Professor(int idade, String nome, String sexo, String telefone, double salario, String especialidade, String senha) {
+		super(idade, nome, sexo, telefone, salario, senha);
 		this.especialidade = especialidade;
 	}
 	public Professor() {

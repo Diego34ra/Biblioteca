@@ -35,7 +35,7 @@ public class UsuarioServices {
 		return usuarios;
 	}
 	
-	public Usuario findById(long codigo) {
+	public static Usuario findById(String codigo) {
 		try {
 			FileInputStream file = new FileInputStream("C:\\Users\\2022101202010058\\Desktop\\Biblioteca\\Usuario\\" + codigo);
 			ObjectInputStream stream = new ObjectInputStream(file);
@@ -78,7 +78,7 @@ public class UsuarioServices {
 	}
 	
 	public String update(Usuario usuarioUpdate, long codigo) {
-		Usuario usuario = findById(codigo);
+		Usuario usuario = findById(String.valueOf(codigo));
 		usuario.setIdade(usuario.getIdade());
 		usuario.setLivros(usuarioUpdate.getLivros());
 		usuario.setNome(usuarioUpdate.getNome());

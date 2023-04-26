@@ -1,4 +1,4 @@
-package biblioteca;
+package  br.com.biblioteca.controller;
 
 
 import br.com.biblioteca.services.UsuarioServices;

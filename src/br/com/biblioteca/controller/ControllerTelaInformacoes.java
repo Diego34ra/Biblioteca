@@ -1,4 +1,4 @@
-package br.com.faculdade.projetopoo.controller;
+package br.com.biblioteca.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;

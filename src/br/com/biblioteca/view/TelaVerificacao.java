@@ -1,4 +1,4 @@
-package br.com.faculdade.projetopoo.view;
+package br.com.biblioteca.view;
 
 
 import javafx.application.Application;

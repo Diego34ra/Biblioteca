@@ -4,16 +4,11 @@ import br.com.biblioteca.model.Usuario;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import br.com.faculdade.projetopoo.view.TelaVerificacao;
-import java.util.Random;
-import java.util.Scanner;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 public class ControllerTelaCadastroUser implements Initializable {
 

@@ -4,22 +4,17 @@
  */
 package br.com.biblioteca.controller;
 
+
 import biblioteca.Alertas;
 import br.com.biblioteca.model.Usuario;
 import br.com.biblioteca.services.UsuarioServices;
-import br.com.faculdade.projetopoo.view.TelaCadastroUser;
-import br.com.faculdade.projetopoo.view.TelaInformacoes;
+import br.com.biblioteca.view.TelaInformacoes;
 import java.net.URL;
-import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -33,32 +28,27 @@ public class ControllerTelaPrincipal implements Initializable {
    
     @FXML
     private AnchorPane Pane;
-   
-    @FXML
-    private Button btSair;
-
-    @FXML
-    private Button btTelaCadastro;
-
-    @FXML
-    private Button btTelaLogin;
-
-    @FXML
-    private PasswordField txSenha;
 
     @FXML
     private TextField txMatricula;
 
     @FXML
-    private Label txRecuperaSenha;
+    private PasswordField txSenha;
 
     @FXML
-    void recuperarSenha() {
-        System.out.println("recuperar senha");
+    private Button btTelaLogin;
+
+    @FXML
+    private Button btSair;
+
+    @FXML
+    void btSair() {
+        System.exit(0);
     }
+
     
     @FXML
-    void logar() throws NoSuchAlgorithmException {
+    void logar(){
         Usuario usuario  = UsuarioServices.findById(txMatricula.getText());
         if(txMatricula.getText().equals(usuario.getMatricula())){
             if (usuario.getSenha().equals(txSenha.getText())) {
@@ -76,22 +66,7 @@ public class ControllerTelaPrincipal implements Initializable {
             Alertas.alertaInformacao("Matrícula inválida!", "Não existe usuário cadastrado com essa matrícula.");
         }
     }
-    
-    @FXML
-    void cadastrarUsuario() {
-        TelaCadastroUser tela = new TelaCadastroUser();
-        try {
-            tela.start(new Stage());
-            TelaCadastroUser.getStage().show();
-        } catch (Exception ex) {
-            System.out.println("Exception ao criar a tela de cadastro\n"+ex);
-        }       
-    }
-    
-    @FXML
-    void btSair(ActionEvent event) {
-    	System.exit(0);
-    }
+
 	
     @Override
     public void initialize(URL url, ResourceBundle rb) {

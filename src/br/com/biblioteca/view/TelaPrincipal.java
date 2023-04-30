@@ -1,6 +1,5 @@
 package br.com.biblioteca.view;
 
-import java.awt.event.MouseEvent;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -8,50 +7,31 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 public class TelaPrincipal extends Application {
-    private static Stage stage;
+    public static Stage stage;
     public static Scene scene;
     
-    private double x = 0;
-    private double y = 0;
-    
-    @Override
     public void start(Stage t) throws Exception {
         stage = new Stage();
+        //para não esticar as laterais
+        stage.setMaxWidth(339);
+        stage.setMaxHeight(413);
+        //valor padrao da tela
+        stage.setWidth(339);
+        stage.setHeight(413);
+        //para não diminuir
+        stage.setMinWidth(339);
+        stage.setMinHeight(413);
         //desativando o botão maximixar e minimizar
         stage.setResizable(false);
         
         Parent painel = FXMLLoader.load(getClass().getResource("FXMLTelaPrincipal.fxml"));
         scene = new Scene(painel);
         
-        stage.setTitle("Tela inicial 1.0");
+        stage.setTitle("Login Biblioteca");
 //        stage.getIcons().add(new Image(TelaLogin.class.getResourceAsStream( "icon.png" ))); 
-        
-        
-        painel.setOnMousePressed((javafx.scene.input.MouseEvent event) ->{
-        	x = event.getSceneX();
-        	y = event.getSceneY();
-        });
-        
-        painel.setOnMouseDragged((javafx.scene.input.MouseEvent event) ->{
-        	stage.setX(event.getScreenX() - x);
-        	stage.setY(event.getScreenY() - y);
-        	
-        	stage.setOpacity(.8);
-        });
-        
-        painel.setOnMouseReleased((javafx.scene.input.MouseEvent event) ->{
-        	stage.setOpacity(1);
-        });
-        		
-        
-        stage.initStyle(StageStyle.TRANSPARENT);
-        
-        
-        
         
         stage.show();
         
@@ -64,6 +44,7 @@ public class TelaPrincipal extends Application {
             System.exit(0);
         });
     }
+    
 
     /**
      * @param args the command line arguments
@@ -78,10 +59,6 @@ public class TelaPrincipal extends Application {
     
     public static Scene getScene(){
         return scene;
-    }
-
-    public static void setScene(Scene scene) {
-        TelaPrincipal.scene = scene;
     }
     
 }

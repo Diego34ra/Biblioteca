@@ -40,17 +40,11 @@ public class ControllerTelaPrincipal implements Initializable {
 
     @FXML
     private Button btSair;
-
-    @FXML
-    void btSair() {
-        System.exit(0);
-    }
-
     
     @FXML
     void logar(){
         Usuario usuario  = UsuarioServices.findById(txMatricula.getText());
-        if(txMatricula.getText().equals(usuario.getMatricula())){
+        if(txMatricula.getText().equals(usuario.getMatricula().toString())){
             if (usuario.getSenha().equals(txSenha.getText())) {
                 TelaInformacoes tela = new TelaInformacoes();
                 try {
@@ -59,6 +53,9 @@ public class ControllerTelaPrincipal implements Initializable {
                 } catch (Exception ex) {
                     System.out.println("Exception ao entrar no menu principal\n"+ex);
                 } 
+                //Fecha a tela atual
+                Stage stage = (Stage) Pane.getScene().getWindow();
+                stage.close();
             } else {
                 Alertas.alertaInformacao("Senha incorreta!", "A senha digitada está incorreta.");
             }

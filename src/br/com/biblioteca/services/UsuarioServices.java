@@ -17,7 +17,7 @@ public class UsuarioServices {
 	public ArrayList<Usuario> findAll(){
 		ArrayList<Usuario> usuarios = new ArrayList<>();
 		ArrayList<String> nameFiles = new ArrayList<>();
-		File file = new File("C:\\Users\\2022101202010058\\Desktop\\Biblioteca");
+		File file = new File("C:\\Users\\Developer\\Documents\\GitHub\\Biblioteca\\src\\biblioteca\\usuario\\");
 	    File[] arquivos = file.listFiles();
 	    for (int i=0; i<file.length(); i++) {
 	        nameFiles.add(arquivos[i].getName());
@@ -37,7 +37,7 @@ public class UsuarioServices {
 	
 	public static Usuario findById(String codigo) {
 		try {
-			FileInputStream file = new FileInputStream("C:\\Users\\Developer\\Desktop\\Biblioteca\\Usuario\\" + codigo);
+			FileInputStream file = new FileInputStream("C:\\Users\\Developer\\Documents\\GitHub\\Biblioteca\\src\\biblioteca\\usuario\\" + codigo);
 			ObjectInputStream stream = new ObjectInputStream(file);
 			return((Usuario) stream.readObject());
 			
@@ -50,7 +50,7 @@ public class UsuarioServices {
 	public static String create(Usuario usuario) {
 		String ret = "Usuario armazenado com sucesso!";
 		try {
-			FileOutputStream file = new FileOutputStream("C:\\Users\\Developer\\Desktop\\Biblioteca\\Usuario\\" + usuario.getMatricula());
+			FileOutputStream file = new FileOutputStream("C:\\Users\\Developer\\Documents\\GitHub\\Biblioteca\\src\\biblioteca\\usuario\\" + usuario.getMatricula());
 			ObjectOutputStream stream = new ObjectOutputStream(file);
 			stream.writeObject(usuario);
 			stream.flush();
@@ -61,7 +61,7 @@ public class UsuarioServices {
 	}
 	
 	public void deleteById(long codigo) {
-		Path path = Paths.get("C:\\Users\\2022101202010058\\Desktop\\Biblioteca\\Usuario\\"+codigo);
+		Path path = Paths.get("biblioteca/usuario"+codigo);
 		 
         try {
             boolean result = Files.deleteIfExists(path);

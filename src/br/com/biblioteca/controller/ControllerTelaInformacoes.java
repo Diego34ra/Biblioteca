@@ -1,5 +1,7 @@
 package br.com.biblioteca.controller;
 
+import br.com.biblioteca.view.TelaCadastroLivro;
+import br.com.biblioteca.view.TelaInformacoes;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -8,26 +10,49 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+
 
 public class ControllerTelaInformacoes implements Initializable {
 
     @FXML
-    private BorderPane BorderPane;
+    private AnchorPane Pane;
     
     @FXML
     private MenuItem menuUsuario;
 
     @FXML
-    void cadastrarUsuario(ActionEvent event) throws IOException {
-//        BorderPane BorderPane = (BorderPane) ((Node) event.getSource()).getScene().getRoot();
-        Parent menuRecebimento = FXMLLoader.load(getClass().getResource("/br/com/biblioteca/view/FXMLTeste.fxml"));
-        BorderPane.setCenter(menuRecebimento);
+    void cadastrarUsuario() throws IOException {
+        Parent menuRecebimento = FXMLLoader.load(getClass().getResource("/br/com/biblioteca/view/FXMLTelaCadastro.fxml"));
+        AnchorPane.setTopAnchor(menuRecebimento, 72.0);
+        AnchorPane.setBottomAnchor(menuRecebimento, 23.0);
+        AnchorPane.setLeftAnchor(menuRecebimento, 200.0);
+        AnchorPane.setRightAnchor(menuRecebimento, 23.0);
+        Pane.getChildren().setAll(menuRecebimento);
+    }
+    
+    @FXML
+    void getTelaAcervo() throws IOException {
+        Parent menuRecebimento = FXMLLoader.load(getClass().getResource("/br/com/biblioteca/view/FXMLTelaAcervo.fxml"));
+        AnchorPane.setTopAnchor(menuRecebimento, 72.0);
+        AnchorPane.setBottomAnchor(menuRecebimento, 23.0);
+        AnchorPane.setLeftAnchor(menuRecebimento, 23.0);
+        AnchorPane.setRightAnchor(menuRecebimento, 23.0);
+        Pane.getChildren().setAll(menuRecebimento);
+    }
+    
+    @FXML
+    void cadastrarLivro() {
+        TelaCadastroLivro tela = new TelaCadastroLivro();
+        try {
+            tela.start(new Stage());
+            TelaInformacoes.getStage().show();
+        } catch (Exception ex) {
+            System.out.println("Exception ao entrar no menu principal\n"+ex);
+        } 
     }
 		
     @Override

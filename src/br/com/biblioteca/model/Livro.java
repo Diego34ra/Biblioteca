@@ -12,8 +12,7 @@ import java.nio.file.Paths;
 public class Livro extends Obra implements DAO{
 	
 	private String autores;
-	private String titulo;
-	private String area;
+//	private String area;
 	private String editora;
 	private int ano;
 	private int edicao;
@@ -32,18 +31,12 @@ public class Livro extends Obra implements DAO{
 	public void setAutores(String autores) {
 		this.autores = autores;
 	}
-	public String getTitulo() {
-		return titulo;
-	}
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-	public String getArea() {
-		return area;
-	}
-	public void setArea(String area) {
-		this.area = area;
-	}
+//	public String getArea() {
+//		return area;
+//	}
+//	public void setArea(String area) {
+//		this.area = area;
+//	}
 	public String getEditora() {
 		return editora;
 	}
@@ -70,12 +63,11 @@ public class Livro extends Obra implements DAO{
 	}
 	
 	
-	public Livro(String tipo, String autores, String titulo, String area, String editora, int ano,
+	public Livro(String tipo, String autores, String nome, String editora, int ano,
 			int edicao, int numFolhas, Boolean digital) {
-		super(tipo, digital);
+		super(tipo, digital,nome);
 		this.autores = autores;
-		this.titulo = titulo;
-		this.area = area;
+//		this.area = area;
 		this.editora = editora;
 		this.ano = ano;
 		this.edicao = edicao;
@@ -98,7 +90,7 @@ public class Livro extends Obra implements DAO{
 	public String gravar() {
 		String ret = "Livro armazenado com sucesso!";
 		try {
-			FileOutputStream file = new FileOutputStream("C:\\Users\\2022101202010058\\Desktop\\Biblioteca\\Livro\\" + this.getCodigo());
+			FileOutputStream file = new FileOutputStream("C:\\Users\\Developer\\Documents\\GitHub\\Biblioteca\\src\\biblioteca\\obra\\" + this.getCodigo());
 			ObjectOutputStream stream = new ObjectOutputStream(file);
 			stream.writeObject(this);
 			stream.flush();
@@ -142,13 +134,13 @@ public class Livro extends Obra implements DAO{
 		Livro livro = ler(this.getCodigo());
 		livro.setAutores(autores);
 		livro.setAno(ano);
-		livro.setArea(area);
+//		livro.setArea(area);
 		livro.setEdicao(edicao);
 		livro.setEditora(editora);
 		livro.setEmprestimo(emprestimo);
 		livro.setNumFolhas(numFolhas);
 		livro.setTipo(this.getTipo());
-		livro.setTitulo(titulo);
+		livro.setNome(this.getNome());
 		livro.excluir();
 		livro.gravar();
 		return null;

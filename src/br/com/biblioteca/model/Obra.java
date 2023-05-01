@@ -5,9 +5,18 @@ import java.util.Random;
 public abstract class Obra {
 	
 	private long codigo;
+        private String nome;
 	private String tipo;
         private Boolean digital;
 
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+        
     public Boolean getDigital() {
         return digital;
     }
@@ -29,13 +38,14 @@ public abstract class Obra {
             this.tipo = tipo;
     }
     
-    public Obra(String tipo, Boolean digital) {
+    public Obra(String tipo, Boolean digital, String nome) {
             super();
             Random random = new Random();
             long codigo = (long) (random.nextDouble() * 10000000000L);
             this.codigo = codigo;
             this.digital = digital;
             this.tipo = tipo;
+            this.nome = nome;
     }
     public Obra() {
     }

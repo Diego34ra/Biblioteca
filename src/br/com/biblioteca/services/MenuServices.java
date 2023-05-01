@@ -24,8 +24,8 @@ public class MenuServices {
             String tipo = scanner.nextLine();
             System.out.println("Quais são os autores do livro? ");
             String autores = scanner.nextLine();
-            System.out.println("Sobre qual area e o livro? ");
-            String area = scanner.nextLine();
+//            System.out.println("Sobre qual area e o livro? ");
+//            String area = scanner.nextLine();
             System.out.println("Qual e a editora do livro? ");
             String editora = scanner.nextLine();
             System.out.println("Qual é o ano do livro? ");
@@ -40,7 +40,7 @@ public class MenuServices {
             if(digit.equals("S")){
                 digital = true;
             }
-            Livro livro = new Livro(tipo,autores,titulo,area,editora,ano,edicao,numFolhas,digital);
+            Livro livro = new Livro(tipo,autores,titulo,editora,ano,edicao,numFolhas,digital);
             livros.add(livro);
             i = JOptionPane.showConfirmDialog(
                     null, 
@@ -108,7 +108,7 @@ public class MenuServices {
                     System.out.println("-------- Lista de livros para devolucao ----------");
                     int contador = 1;
                     for(Livro livro : usuario.getLivros()) {
-                            System.out.println(contador + " - " + livro.getTitulo());
+                            System.out.println(contador + " - " + livro.getNome());
                     }
                     System.out.println("Qual livro deseja devolver ? ");
                     int resposta = scanner.nextInt();
@@ -119,7 +119,7 @@ public class MenuServices {
     public void listarEmprestimo(Usuario usuario) {
             System.out.println("--- Emprestimos ---");
             for(Livro livro: usuario.getLivros()) {
-                    System.out.println(livro.getCodigo() + " - " + livro.getTitulo());
+                    System.out.println(livro.getCodigo() + " - " + livro.getNome());
             }
     }
 
@@ -129,7 +129,7 @@ public class MenuServices {
             int contador = 1;
             for(Livro livro: livros) {
                     if(livro.isEmprestimo()) {
-                            System.out.println(livro.getCodigo() + " - " + livro.getTitulo());
+                            System.out.println(livro.getCodigo() + " - " + livro.getNome());
                     }
                     contador++;
             }

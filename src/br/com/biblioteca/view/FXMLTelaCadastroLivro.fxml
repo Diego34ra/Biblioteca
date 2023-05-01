@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="Pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="333.0" prefWidth="546.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.biblioteca.controller.ControllerTelaCadastroLivro">
+   <children>
+      <TextField fx:id="txTitulo" alignment="CENTER" layoutX="106.0" layoutY="94.0" promptText="Título" AnchorPane.leftAnchor="107.0" AnchorPane.topAnchor="93.0" />
+      <TextField fx:id="txAutores" alignment="CENTER" layoutX="107.0" layoutY="138.0" promptText="Autores" AnchorPane.leftAnchor="107.0" />
+      <TextField fx:id="txEditora" alignment="CENTER" layoutX="106.0" layoutY="183.0" promptText="Editora" AnchorPane.leftAnchor="107.0" />
+      <TextField fx:id="txAno" alignment="CENTER" layoutX="292.0" layoutY="183.0" promptText="Ano" AnchorPane.rightAnchor="105.0" />
+      <TextField fx:id="txEdicao" alignment="CENTER" layoutX="292.0" layoutY="93.0" promptText="Edição" AnchorPane.rightAnchor="105.0" AnchorPane.topAnchor="93.0" />
+      <TextField fx:id="txNumFolhas" alignment="CENTER" layoutX="292.0" layoutY="138.0" promptText="Numero de Folhas" AnchorPane.rightAnchor="105.0" />
+      <CheckBox fx:id="cbFisica" layoutX="106.0" layoutY="241.0" mnemonicParsing="false" onAction="#setFisica" text="Física" />
+      <CheckBox fx:id="cbDigital" layoutX="181.0" layoutY="241.0" mnemonicParsing="false" onAction="#setDigital" text="Digital" />
+      <Label layoutX="106.0" layoutY="217.0" text="Tipo de Obra:" />
+      <Button fx:id="btSalvar" layoutX="451.0" layoutY="274.0" mnemonicParsing="false" onAction="#Salvar" text="Salvar" AnchorPane.bottomAnchor="34.0" />
+      <Label layoutX="220.0" layoutY="42.0" text="Cadastrar Livro" AnchorPane.topAnchor="42.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

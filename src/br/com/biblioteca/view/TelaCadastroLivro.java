@@ -5,7 +5,6 @@
 package br.com.biblioteca.view;
 
 import static javafx.application.Application.launch;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

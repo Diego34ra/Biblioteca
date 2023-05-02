@@ -37,7 +37,7 @@ public class UsuarioServices {
 	
 	public static Usuario findById(String codigo) {
 		try {
-			FileInputStream file = new FileInputStream("C:\\Users\\Developer\\Documents\\GitHub\\Biblioteca\\src\\biblioteca\\usuario\\" + codigo);
+			FileInputStream file = new FileInputStream("C:\\Users\\2022101202010058\\Documents\\NetBeansProjects\\Biblioteca\\src\\biblioteca\\usuario\\" + codigo);
 			ObjectInputStream stream = new ObjectInputStream(file);
 			return((Usuario) stream.readObject());
 			
@@ -47,17 +47,19 @@ public class UsuarioServices {
 		}
 	}
 	
-	public static String create(Usuario usuario) {
-		String ret = "Usuario armazenado com sucesso!";
-		try {
-			FileOutputStream file = new FileOutputStream("C:\\Users\\Developer\\Documents\\GitHub\\Biblioteca\\src\\biblioteca\\usuario\\" + usuario.getMatricula());
-			ObjectOutputStream stream = new ObjectOutputStream(file);
-			stream.writeObject(usuario);
-			stream.flush();
-		} catch (Exception erro) {
-			ret = "Falha na gravação \n" + erro.toString();
-		}
-		return ret;
+	public static Boolean create(Usuario usuario) {
+            Boolean valida = false;
+            try {
+                    FileOutputStream file = new FileOutputStream("C:\\Users\\2022101202010058\\Documents\\NetBeansProjects\\Biblioteca\\src\\biblioteca\\usuario\\" + usuario.getMatricula());
+                    ObjectOutputStream stream = new ObjectOutputStream(file);
+                    stream.writeObject(usuario);
+                    stream.flush();
+                    valida = true;
+            } catch (Exception erro) {
+                    System.out.println("Falha na gravação \n" + erro.toString());
+                    return valida;
+            }
+            return valida;
 	}
 	
 	public void deleteById(long codigo) {
@@ -77,7 +79,7 @@ public class UsuarioServices {
         }
 	}
 	
-	public String update(Usuario usuarioUpdate, long codigo) {
+	public Boolean update(Usuario usuarioUpdate, long codigo) {
 		Usuario usuario = findById(String.valueOf(codigo));
 		usuario.setIdade(usuario.getIdade());
 		usuario.setLivros(usuarioUpdate.getLivros());

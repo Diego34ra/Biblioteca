@@ -13,8 +13,8 @@ public class Estudante extends Usuario{
     }
 
 
-    public Estudante(int idade, String nome, String sexo, String telefone,  String curso, String senha) {
-            super(idade, nome, sexo, telefone, senha);
+    public Estudante(int idade, String nome, String sexo, String telefone,  String curso, String senha, Long matricula) {
+            super(idade, nome, sexo, telefone, senha, matricula);
             this.curso = curso;
     }
 

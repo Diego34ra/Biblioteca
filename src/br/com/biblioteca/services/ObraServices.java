@@ -5,8 +5,14 @@
 package br.com.biblioteca.services;
 
 import br.com.biblioteca.model.Livro;
+import br.com.biblioteca.model.Obra;
+import br.com.biblioteca.model.Usuario;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,12 +20,12 @@ import java.io.ObjectOutputStream;
  */
 public class ObraServices {
     
-    public static Boolean createLivro(Livro livro){
+    public static Boolean createObra(Obra obra){
         Boolean valida = false;
         try {
-                FileOutputStream file = new FileOutputStream("C:\\Users\\Developer\\Documents\\GitHub\\Biblioteca\\src\\biblioteca\\obra\\" + livro.getCodigo());
+                FileOutputStream file = new FileOutputStream("C:\\Users\\2022101202010058\\Documents\\NetBeansProjects\\Biblioteca\\src\\biblioteca\\obra\\" + obra.getCodigo());
                 ObjectOutputStream stream = new ObjectOutputStream(file);
-                stream.writeObject(livro);
+                stream.writeObject(obra);
                 stream.flush();
                 valida = true;
         } catch (Exception erro) {
@@ -27,5 +33,30 @@ public class ObraServices {
                 return valida;
         }
         return valida;
+    }
+    
+    public static ArrayList<Obra> findAll(){
+        ArrayList<Obra> obras = new ArrayList<>();
+        ArrayList<String> nameFiles = new ArrayList<>();
+        File file = new File("C:\\Users\\2022101202010058\\Documents\\NetBeansProjects\\Biblioteca\\src\\biblioteca\\obra\\");
+        File[] arquivos = file.listFiles();
+        System.out.println("nome files = "+ file.getName());
+        System.out.println("tamanho da files = "+ file.listFiles().length);
+        for (int i=0; i<file.listFiles().length; i++) {
+            System.out.println("nome file = "+arquivos[i].getName());
+            nameFiles.add(arquivos[i].getName());
+        }
+        for(String nameString : nameFiles) {
+            System.out.println("pasta : "+ nameString);
+            try {             
+                FileInputStream fileInputStream = new FileInputStream("C:\\Users\\2022101202010058\\Documents\\NetBeansProjects\\Biblioteca\\src\\biblioteca\\obra\\"+nameString);
+                ObjectInputStream stream = new ObjectInputStream(fileInputStream);
+                obras.add((Obra) stream.readObject());
+            } catch (Exception erro) {
+                System.out.println("Falha na leitura \n" + erro.toString());
+                return null;
+            }
+        }
+            return obras;
     }
 }

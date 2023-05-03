@@ -12,8 +12,8 @@ public class Funcionario extends Usuario{
 		this.salario = salario;
 	}
         
-	public Funcionario(int idade, String nome, String sexo, String telefone, double salario, String senha) {
-		super(idade, nome, sexo, telefone, senha);
+	public Funcionario(int idade, String nome, String sexo, String telefone, double salario, String senha, Long matricula) {
+		super(idade, nome, sexo, telefone, senha, matricula);
 		this.salario = salario;
 	}
 

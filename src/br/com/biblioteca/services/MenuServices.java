@@ -65,6 +65,8 @@ public class MenuServices {
                     String telefone = scanner.nextLine();
                     System.out.println("Qual a senha? ");
                     String senha = scanner.nextLine();
+                    System.out.println("Qual a matricula? ");
+                    Long matricula = scanner.nextLong();
                     System.out.println("----- Tipo de usuario -----");
                     System.out.println("1 - Professor");
                     System.out.println("2 - Estudante");
@@ -77,17 +79,17 @@ public class MenuServices {
                             String especialidade = scanner.nextLine();
                             System.out.println("Qual o salario do professor?");
                             salario = scanner.nextDouble();
-                            usuarios.add(new Professor(idade,nome,sexo,telefone,salario,especialidade,senha));
+                            usuarios.add(new Professor(idade,nome,sexo,telefone,especialidade,senha,matricula));
                             break;
                     case 2:
                             System.out.println("Qual o curso do Estudante?");
                             String curso = scanner.nextLine();
-                            usuarios.add(new Estudante(idade,nome,sexo,telefone,curso,senha));
+                            usuarios.add(new Estudante(idade,nome,sexo,telefone,curso,senha,matricula));
                             break;
                     case 3:
                             System.out.println("Qual o salario do funcionario?");
                             salario = scanner.nextDouble(); 
-                            usuarios.add(new Funcionario(idade,nome,sexo,telefone,salario,senha));
+                            usuarios.add(new Funcionario(idade,nome,sexo,telefone,salario,senha,matricula));
                     default:
                             System.out.println("Valor invalido : " + resposta);
                     }

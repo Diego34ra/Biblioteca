@@ -61,7 +61,7 @@ public class Usuario extends Pessoa implements DAO, Serializable{
             System.out.println("Lendo o livro.");
     }
 
-    public Usuario(int idade, String nome, String sexo, String telefone, String senha) {
+    public Usuario(int idade, String nome, String sexo, String telefone, String senha, Long matricula) {
             super(idade, nome);
             Random random = new Random();
             this.matricula = (long) (random.nextDouble() * 10000000000L);

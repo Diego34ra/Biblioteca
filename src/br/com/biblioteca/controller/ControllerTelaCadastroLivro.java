@@ -6,6 +6,7 @@ package br.com.biblioteca.controller;
 
 import biblioteca.Alertas;
 import br.com.biblioteca.model.Livro;
+import br.com.biblioteca.model.Obra;
 import br.com.biblioteca.services.ObraServices;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -59,11 +60,11 @@ public class ControllerTelaCadastroLivro implements Initializable{
         if(cbDigital.isSelected()){
             digital = true;
         }
-        Livro livro = new Livro("Livro", txAutores.getText(), txTitulo.getText(),
+        Obra obra = new Livro("Livro", txAutores.getText(), txTitulo.getText(),
                                  txEditora.getText(), Integer.parseInt(txAno.getText()),
                                  Integer.parseInt(txEdicao.getText()), Integer.parseInt(txNumFolhas.getText()),
                                  digital);
-        if(ObraServices.createLivro(livro)){
+        if(ObraServices.createObra(obra)){
             Alertas.alertaInformacao("Sucesso!", "Livro cadastrado com sucesso!");
             //Fecha a tela atual
             Stage stage = (Stage) Pane.getScene().getWindow();

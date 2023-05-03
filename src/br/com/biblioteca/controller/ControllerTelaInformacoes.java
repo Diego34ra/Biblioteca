@@ -1,6 +1,8 @@
 package br.com.biblioteca.controller;
 
+import br.com.biblioteca.view.TelaCadastroFuncionario;
 import br.com.biblioteca.view.TelaCadastroLivro;
+import br.com.biblioteca.view.TelaCadastroProfessor;
 import br.com.biblioteca.view.TelaCadastroUser;
 import br.com.biblioteca.view.TelaInformacoes;
 import java.io.IOException;
@@ -32,7 +34,29 @@ public class ControllerTelaInformacoes implements Initializable {
             tela.start(new Stage());
             TelaCadastroUser.getStage().show();
         } catch (Exception ex) {
-            System.out.println("Exception ao entrar no menu principal\n"+ex);
+            System.out.println("Exception ao entrar na tela de cadastro\n"+ex);
+        } 
+    }
+    
+    @FXML
+    void cadastrarProfessor(ActionEvent event) {
+        TelaCadastroProfessor tela = new TelaCadastroProfessor();
+        try {
+            tela.start(new Stage());
+            TelaCadastroProfessor.getStage().show();
+        } catch (Exception ex) {
+            System.out.println("Exception ao entrar na tela de cadastro de professor\n"+ex);
+        } 
+    }
+    
+    @FXML
+    void cadastrarFuncionario() {
+        TelaCadastroFuncionario tela = new TelaCadastroFuncionario();
+        try {
+            tela.start(new Stage());
+            TelaCadastroFuncionario.getStage().show();
+        } catch (Exception ex) {
+            System.out.println("Exception ao entrar na tela de cadastro de professor\n"+ex);
         } 
     }
     

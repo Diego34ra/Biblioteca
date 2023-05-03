@@ -5,7 +5,7 @@ package br.com.biblioteca.model;
  * @author Diego
  *
  */
-public class Professor extends Funcionario{
+public class Professor extends Usuario{
 	
 	private String especialidade;
 	
@@ -18,13 +18,10 @@ public class Professor extends Funcionario{
 	
         
         
-	public Professor(int idade, String nome, String sexo, String telefone, double salario, String especialidade, String senha) {
-		super(idade, nome, sexo, telefone, salario, senha);
+	public Professor(int idade, String nome, String sexo, String telefone, String especialidade, String senha, Long matricula) {
+		super(idade, nome, sexo, telefone, senha, matricula);
 		this.especialidade = especialidade;
 	}
-	public Professor() {
-		super();
-	}
 	
-	
+		
 }

@@ -1,26 +1,32 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package br.com.biblioteca.controller;
 
 import biblioteca.Alertas;
-import br.com.biblioteca.model.Estudante;
+import br.com.biblioteca.model.Funcionario;
+import br.com.biblioteca.model.Professor;
 import br.com.biblioteca.model.Usuario;
 import br.com.biblioteca.services.UsuarioServices;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class ControllerTelaCadastroEstudante implements Initializable {
-
-    @FXML
+/**
+ *
+ * @author 2022101202010058
+ */
+public class ControllerTelaCadastroFuncionario implements Initializable{
+     @FXML
     private AnchorPane Pane;
-    
+
     @FXML
     private TextField txSenha;
 
@@ -43,7 +49,7 @@ public class ControllerTelaCadastroEstudante implements Initializable {
     private TextField txMatriculo;
 
     @FXML
-    private TextField txCurso;
+    private TextField txSalario;
 
     @FXML
     void setFeminino( ) {
@@ -70,9 +76,9 @@ public class ControllerTelaCadastroEstudante implements Initializable {
             sexo = "Feminino";
         }
  
-        Usuario usuario = new Estudante(Integer.parseInt(txIdade.getText()), txNome.getText(),
-                                             sexo, txTelefone.getText(), txCurso.getText(),
-                                        txSenha.getText(),Long.parseLong(txMatriculo.getText()));
+        Usuario usuario = new Funcionario(Integer.parseInt(txIdade.getText()), txNome.getText(),
+                                             sexo, txTelefone.getText(), Double.valueOf(txSalario.getText()),
+                                        txSenha.getText(), Long.parseLong(txMatriculo.getText()));
         
         if(UsuarioServices.create(usuario)){
             Alertas.alertaInformacao("Sucesso!", "Usuário cadastrado com sucesso!");

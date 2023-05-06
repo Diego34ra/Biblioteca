@@ -23,7 +23,7 @@ public class ObraServices {
     public static Boolean createObra(Obra obra){
         Boolean valida = false;
         try {
-                FileOutputStream file = new FileOutputStream("C:\\Users\\2022101202010058\\Documents\\NetBeansProjects\\Biblioteca\\src\\biblioteca\\obra\\" + obra.getCodigo());
+                FileOutputStream file = new FileOutputStream("C:\\Users\\Developer\\Documents\\GitHub\\Biblioteca\\src\\biblioteca\\obra\\" + obra.getCodigo());
                 ObjectOutputStream stream = new ObjectOutputStream(file);
                 stream.writeObject(obra);
                 stream.flush();
@@ -38,7 +38,7 @@ public class ObraServices {
     public static ArrayList<Obra> findAll(){
         ArrayList<Obra> obras = new ArrayList<>();
         ArrayList<String> nameFiles = new ArrayList<>();
-        File file = new File("C:\\Users\\2022101202010058\\Documents\\NetBeansProjects\\Biblioteca\\src\\biblioteca\\obra\\");
+        File file = new File("C:\\Users\\Developer\\Documents\\GitHub\\Biblioteca\\src\\biblioteca\\obra\\");
         File[] arquivos = file.listFiles();
         System.out.println("nome files = "+ file.getName());
         System.out.println("tamanho da files = "+ file.listFiles().length);
@@ -49,7 +49,7 @@ public class ObraServices {
         for(String nameString : nameFiles) {
             System.out.println("pasta : "+ nameString);
             try {             
-                FileInputStream fileInputStream = new FileInputStream("C:\\Users\\2022101202010058\\Documents\\NetBeansProjects\\Biblioteca\\src\\biblioteca\\obra\\"+nameString);
+                FileInputStream fileInputStream = new FileInputStream("C:\\Users\\Developer\\Documents\\GitHub\\Biblioteca\\src\\biblioteca\\obra\\"+nameString);
                 ObjectInputStream stream = new ObjectInputStream(fileInputStream);
                 obras.add((Obra) stream.readObject());
             } catch (Exception erro) {
@@ -58,5 +58,19 @@ public class ObraServices {
             }
         }
             return obras;
+    }
+    
+    public static Obra findById(String id){
+        Obra obra = new Obra();
+
+        try {             
+            FileInputStream fileInputStream = new FileInputStream("C:\\Users\\Developer\\Documents\\GitHub\\Biblioteca\\src\\biblioteca\\obra\\"+id);
+            ObjectInputStream stream = new ObjectInputStream(fileInputStream);
+            obra = (Obra) stream.readObject();
+        } catch (Exception erro) {
+            System.out.println("Falha na leitura \n" + erro.toString());
+            return null;
+        }
+        return obra;
     }
 }

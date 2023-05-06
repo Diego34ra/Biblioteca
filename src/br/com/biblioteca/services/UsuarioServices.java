@@ -37,7 +37,7 @@ public class UsuarioServices {
 	
 	public static Usuario findById(String codigo) {
             try {
-                FileInputStream file = new FileInputStream("C:\\Users\\2022101202010058\\Documents\\NetBeansProjects\\Biblioteca\\src\\biblioteca\\usuario\\" + codigo);
+                FileInputStream file = new FileInputStream("C:\\Users\\Developer\\Documents\\GitHub\\Biblioteca\\src\\biblioteca\\usuario\\" + codigo);
                 ObjectInputStream stream = new ObjectInputStream(file);
                 return((Usuario) stream.readObject());
 

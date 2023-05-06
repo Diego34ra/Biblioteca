@@ -3,7 +3,7 @@ package br.com.biblioteca.model;
 import java.io.Serializable;
 import java.util.Random;
 
-public abstract class Obra implements Serializable{
+public class Obra implements Serializable{
 	
 	private long codigo;
         private String nome;

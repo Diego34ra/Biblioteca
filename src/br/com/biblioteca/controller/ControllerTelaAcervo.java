@@ -5,6 +5,7 @@
 package br.com.biblioteca.controller;
 
 import biblioteca.Global;
+import br.com.biblioteca.model.Funcionario;
 import br.com.biblioteca.model.Livro;
 import br.com.biblioteca.model.Obra;
 import br.com.biblioteca.services.ObraServices;
@@ -48,12 +49,17 @@ public class ControllerTelaAcervo implements Initializable{
     private final TableColumn cellAcervoNome = new TableColumn("Nome");
     private final TableColumn cellAcervotipo = new TableColumn("Tipo");
     private final TableColumn<Obra,Obra> cellAcervoDetalhes = new TableColumn("Detalhes");
+    private final TableColumn<Obra,Obra> cellAcervoDelete = new TableColumn("Deletar");
     
     private void carregaTabelaAcervo(ObservableList<Obra> list){
         tbAcervo.getColumns().clear();
         formataTabelaAcervo();
         tbAcervo.setItems(list);
-        tbAcervo.getColumns().addAll(cellAcervoId,cellAcervoNome,cellAcervotipo,cellAcervoDetalhes);
+        if(Global.usuario instanceof Funcionario){
+           tbAcervo.getColumns().addAll(cellAcervoId,cellAcervoNome,cellAcervotipo,cellAcervoDetalhes, cellAcervoDelete); 
+        } else {
+            tbAcervo.getColumns().addAll(cellAcervoId,cellAcervoNome,cellAcervotipo,cellAcervoDetalhes); 
+        }
     }
 
             
@@ -154,6 +160,47 @@ public class ControllerTelaAcervo implements Initializable{
                                     default:
                                         throw new AssertionError();
                                 }
+                            }
+                        );
+                        setGraphic(botao);
+                    }
+                }
+            };
+            return cell ;
+        });
+        
+        cellAcervoDelete.setMinWidth(50);
+        cellAcervoDelete.setPrefWidth(80);
+        cellAcervoDelete.setResizable(false);
+        cellAcervoDelete.setStyle("-fx-alignment: center;");
+        cellAcervoDelete.setCellFactory(col -> {
+            TableCell<Obra, Obra> cell = new TableCell<Obra, Obra>() {
+                @Override
+                public void updateItem(Obra item, boolean empty) {
+                    final Tooltip infAjuda = new Tooltip();
+                    infAjuda.setText("Deletar obra");
+                    Button botao = new Button();
+                    File file = new File("C:/Users/Developer/Documents/GitHub/Biblioteca/img/delete.png");
+                    Image imagem = new Image(file.toURI().toString());
+                    ImageView imv = new ImageView();
+                    {
+                        imv.setFitHeight(20l);
+                        imv.setFitWidth(20l);
+                    }
+                    imv.setImage(imagem);
+                    botao.setPickOnBounds(true);
+                    botao.setGraphic(imv);
+                    botao.setAlignment(Pos.CENTER);
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                    } else {
+                        botao.setOnAction(event -> 
+                            { 
+                                Obra obra = getTableView().getItems().get(getIndex());
+                                ObraServices.deleteById(obra.getCodigo());
+                                ObservableList<Obra> obj = FXCollections.observableArrayList(ObraServices.findAll());
+                                carregaTabelaAcervo(obj);
                             }
                         );
                         setGraphic(botao);

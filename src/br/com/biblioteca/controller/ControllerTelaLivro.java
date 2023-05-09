@@ -4,9 +4,12 @@
  */
 package br.com.biblioteca.controller;
 
+import biblioteca.Alertas;
 import biblioteca.Global;
+import br.com.biblioteca.model.Emprestimo;
 import br.com.biblioteca.model.Livro;
 import br.com.biblioteca.model.Obra;
+import br.com.biblioteca.services.EmprestimoServices;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -41,11 +44,17 @@ public class ControllerTelaLivro implements Initializable{
     private final TableColumn cellLivroEdicao = new TableColumn("Edição");
     private final TableColumn cellLivroAno = new TableColumn("Ano");
     private final TableColumn cellLivroNumFolha = new TableColumn("Páginas");
-    private final TableColumn<Obra,Obra> cellAcervoDetalhes = new TableColumn("Emprestimo");
+    private final TableColumn cellLivroStatus = new TableColumn("Páginas");
+    private final TableColumn<Livro,Livro> cellLivroEmprestar = new TableColumn("Emprestimo");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         List<Livro> livros = new ArrayList<>();
+        if (Global.livro.isEmprestimo()) {
+            Global.livro.setStatus("Livre");
+        } else {
+            Global.livro.setStatus("Emprestado");
+        }
         livros.add(Global.livro);
         carregaTabelaAcervo(FXCollections.observableArrayList(livros));
         
@@ -55,7 +64,7 @@ public class ControllerTelaLivro implements Initializable{
         tbLivro.getColumns().clear();
         formataTabelaLivro();
         tbLivro.setItems(list);
-        tbLivro.getColumns().addAll(cellLivroId,cellLivroNome,cellLivroDigital,cellLivroAutor,cellLivroEditora,cellLivroEdicao,cellLivroAno);
+        tbLivro.getColumns().addAll(cellLivroId,cellLivroNome,cellLivroDigital,cellLivroAutor,cellLivroEditora,cellLivroEdicao,cellLivroAno, cellLivroNumFolha, cellLivroStatus, cellLivroEmprestar);
     }
     
     private void formataTabelaLivro(){
@@ -107,26 +116,38 @@ public class ControllerTelaLivro implements Initializable{
         cellLivroEdicao.setPrefWidth(100);
         cellLivroEdicao.setResizable(false);
         cellLivroEdicao.setCellValueFactory (new PropertyValueFactory <> ( "edicao" ));
-        cellLivroEditora.setStyle("-fx-alignment: center;");
+        cellLivroEdicao.setStyle("-fx-alignment: center;");
         
         cellLivroAno.setMinWidth(80);
         cellLivroAno.setPrefWidth(100);
         cellLivroAno.setResizable(false);
         cellLivroAno.setCellValueFactory (new PropertyValueFactory <> ( "ano" ));
-        cellLivroEditora.setStyle("-fx-alignment: center;");
+        cellLivroAno.setStyle("-fx-alignment: center;");
         
-        cellAcervoDetalhes.setMinWidth(50);
-        cellAcervoDetalhes.setPrefWidth(80);
-        cellAcervoDetalhes.setResizable(false);
-        cellAcervoDetalhes.setStyle("-fx-alignment: center;");
-        cellAcervoDetalhes.setCellFactory(col -> {
-            TableCell<Obra, Obra> cell = new TableCell<Obra, Obra>() {
+        cellLivroNumFolha.setMinWidth(80);
+        cellLivroNumFolha.setPrefWidth(100);
+        cellLivroNumFolha.setResizable(false);
+        cellLivroNumFolha.setCellValueFactory (new PropertyValueFactory <> ( "numFolhas" ));
+        cellLivroNumFolha.setStyle("-fx-alignment: center;");
+        
+        cellLivroStatus.setMinWidth(80);
+        cellLivroStatus.setPrefWidth(100);
+        cellLivroStatus.setResizable(false);
+        cellLivroStatus.setCellValueFactory (new PropertyValueFactory <> ( "status" ));
+        cellLivroStatus.setStyle("-fx-alignment: center;");
+        
+        cellLivroEmprestar.setMinWidth(50);
+        cellLivroEmprestar.setPrefWidth(80);
+        cellLivroEmprestar.setResizable(false);
+        cellLivroEmprestar.setStyle("-fx-alignment: center;");
+        cellLivroEmprestar.setCellFactory(col -> {
+            TableCell<Livro, Livro> cell = new TableCell<Livro, Livro>() {
                 @Override
-                public void updateItem(Obra item, boolean empty) {
+                public void updateItem(Livro item, boolean empty) {
                     final Tooltip infAjuda = new Tooltip();
                     infAjuda.setText("Buscar detalhe da obra");
                     Button botao = new Button();
-                    File file = new File("C:/Users/Developer/Documents/GitHub/Biblioteca/img/detalhe.png");
+                    File file = new File("C:/Users/Developer/Documents/GitHub/Biblioteca/img/realizar.png");
                     Image imagem = new Image(file.toURI().toString());
                     ImageView imv = new ImageView();
                     {
@@ -143,17 +164,15 @@ public class ControllerTelaLivro implements Initializable{
                     } else {
                         botao.setOnAction(event -> 
                             { 
-                                Obra obra = getTableView().getItems().get(getIndex());
-                                switch (getTableView().getItems().get(getIndex()).getTipo()) {
-                                    case "Livro":
-                                        Global.livro = (Livro) obra;
-                                        break;
-                                    case "Mídia Áudio":
-                                        break;
-                                    case "Fotografia":
-                                        break;
-                                    default:
-                                        throw new AssertionError();
+                                if (Global.livro.isEmprestimo()) {
+                                    Emprestimo emprestimo = new Emprestimo(Global.livro,Global.usuario);
+                                    System.out.println("Usuario = "+ Global.usuario.getNome());
+                                    System.out.println("Livro = "+ Global.livro.getTitulo());
+                                    EmprestimoServices.createEmprestimo(emprestimo);
+                                    Global.livro.setEmprestimo(false);
+                                    Alertas.alertaInformacao("Sucesso", "Emprestimo realizado com sucesso.");
+                                } else { 
+                                    Alertas.alertaInformacao("Erro", "Livro não está livre para emprestimo.");
                                 }
                             }
                         );

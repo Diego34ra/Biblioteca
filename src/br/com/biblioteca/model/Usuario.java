@@ -1,6 +1,5 @@
 package br.com.biblioteca.model;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -11,15 +10,23 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Usuario extends Pessoa implements DAO, Serializable{
 	
 	private Long matricula;
 	private String sexo;
+        private String nome;
 	private String telefone;
 	private ArrayList<Livro> livros;
         private String senha;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
     public String getSenha() {
         return senha;
@@ -62,9 +69,9 @@ public class Usuario extends Pessoa implements DAO, Serializable{
     }
 
     public Usuario(int idade, String nome, String sexo, String telefone, String senha, Long matricula) {
-            super(idade, nome);
-            Random random = new Random();
-            this.matricula = (long) (random.nextDouble() * 10000000000L);
+            super(idade);
+            this.matricula = matricula;
+            this.nome = nome;
             this.sexo = sexo;
             this.telefone = telefone;
             this.senha = senha;

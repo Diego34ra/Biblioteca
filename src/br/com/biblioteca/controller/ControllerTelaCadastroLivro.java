@@ -60,10 +60,12 @@ public class ControllerTelaCadastroLivro implements Initializable{
         if(cbDigital.isSelected()){
             digital = true;
         }
-        Obra obra = new Livro("Livro", txAutores.getText(), txTitulo.getText(),
+        Livro livro = new Livro("Livro", txAutores.getText(), txTitulo.getText(), txTitulo.getText(),
                                  txEditora.getText(), Integer.parseInt(txAno.getText()),
                                  Integer.parseInt(txEdicao.getText()), Integer.parseInt(txNumFolhas.getText()),
                                  digital);
+        System.out.println("titulo livro = "+ livro.getTitulo());
+        Obra obra = (Obra) livro;
         if(ObraServices.createObra(obra)){
             Alertas.alertaInformacao("Sucesso!", "Livro cadastrado com sucesso!");
             //Fecha a tela atual

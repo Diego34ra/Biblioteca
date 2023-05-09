@@ -50,7 +50,7 @@ public class UsuarioServices {
 	public static Boolean create(Usuario usuario) {
             Boolean valida = false;
             try {
-                    FileOutputStream file = new FileOutputStream("C:\\Users\\2022101202010058\\Documents\\NetBeansProjects\\Biblioteca\\src\\biblioteca\\usuario\\" + usuario.getMatricula());
+                    FileOutputStream file = new FileOutputStream("C:\\Users\\Developer\\Documents\\GitHub\\Biblioteca\\src\\biblioteca\\usuario\\" + usuario.getMatricula());
                     ObjectOutputStream stream = new ObjectOutputStream(file);
                     stream.writeObject(usuario);
                     stream.flush();
@@ -63,20 +63,19 @@ public class UsuarioServices {
 	}
 	
 	public void deleteById(long codigo) {
-		Path path = Paths.get("biblioteca/usuario"+codigo);
-		 
-        try {
-            boolean result = Files.deleteIfExists(path);
-            if (result) {
-                System.out.println("Usuario deletado com sucesso.");
+            Path path = Paths.get("biblioteca/usuario"+codigo); 
+            try {
+                boolean result = Files.deleteIfExists(path);
+                if (result) {
+                    System.out.println("Usuario deletado com sucesso.");
+                }
+                else {
+                    System.out.println("Erro ao deletar usuario.");
+                }
             }
-            else {
-                System.out.println("Erro ao deletar usuario.");
+            catch (IOException e) {
+                e.printStackTrace();
             }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
 	}
 	
 	public Boolean update(Usuario usuarioUpdate, long codigo) {

@@ -6,6 +6,7 @@ package br.com.biblioteca.controller;
 
 
 import biblioteca.Alertas;
+import biblioteca.Global;
 import br.com.biblioteca.model.Usuario;
 import br.com.biblioteca.services.UsuarioServices;
 import br.com.biblioteca.view.TelaInformacoes;
@@ -46,6 +47,7 @@ public class ControllerTelaPrincipal implements Initializable {
         Usuario usuario  = UsuarioServices.findById(txMatricula.getText());
         if(txMatricula.getText().equals(usuario.getMatricula().toString())){
             if (usuario.getSenha().equals(txSenha.getText())) {
+                Global.usuario = usuario;
                 TelaInformacoes tela = new TelaInformacoes();
                 try {
                     tela.start(new Stage());

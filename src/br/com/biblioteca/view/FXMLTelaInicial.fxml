@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" styleClass="teste" xmlns="http://javafx.com/javafx/8.0.361" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.biblioteca.controller.ControllerTelaInformacoes">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" styleClass="teste" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.biblioteca.controller.ControllerTelaInformacoes">
    <children>
       <MenuBar layoutY="2.0" prefHeight="67.0" prefWidth="700.0" style="-fx-padding: 1.5em; -fx-background-color: #CDE4EB;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
             <Menu mnemonicParsing="false" style="-fx-font-size: 16px;" text="Obras">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#getTelaAcervo" text="Acervo" />
-                  <MenuItem mnemonicParsing="false" text="Emprestimos" />
+                  <MenuItem mnemonicParsing="false" onAction="#getTelaEmprestimo" text="Emprestimos" />
                   <MenuItem mnemonicParsing="false" text="Reservas" />
               </items>
             </Menu>

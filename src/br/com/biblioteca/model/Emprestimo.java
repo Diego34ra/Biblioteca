@@ -5,16 +5,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.Random;
 
-public class Emprestimo implements DAO {
+public class Emprestimo implements DAO, Serializable {
 	
 	private long codigo;
-	private String dataEmprestimo;
-	private String horaEmprestimo;
+	private LocalDateTime dataEmprestimo;
 	private Livro livro;
 	private Usuario usuario;
 	
@@ -24,18 +25,15 @@ public class Emprestimo implements DAO {
 	public void setCodigo(long codigo) {
 		this.codigo = codigo;
 	}
-	public String getDataEmprestimo() {
-		return dataEmprestimo;
-	}
-	public void setDataEmprestimo(String dataEmprestimo) {
-		this.dataEmprestimo = dataEmprestimo;
-	}
-	public String getHoraEmprestimo() {
-		return horaEmprestimo;
-	}
-	public void setHoraEmprestimo(String horaEmprestimo) {
-		this.horaEmprestimo = horaEmprestimo;
-	}
+
+    public LocalDateTime getDataEmprestimo() {
+        return dataEmprestimo;
+    }
+
+    public void setDataEmprestimo(LocalDateTime dataEmprestimo) {
+        this.dataEmprestimo = dataEmprestimo;
+    }
+	
 	public Livro getLivro() {
 		return livro;
 	}
@@ -54,12 +52,11 @@ public class Emprestimo implements DAO {
 		System.out.println("Devolvendo o livro.");
 	}
 	
-	public Emprestimo(String dataEmprestimo, String horaEmprestimo, Livro livro, Usuario usuario) {
+	public Emprestimo(Livro livro, Usuario usuario) {
             super();
             Random random = new Random();
             this.codigo = (long) (random.nextDouble() * 10000000000L);
-            this.dataEmprestimo = dataEmprestimo;
-            this.horaEmprestimo = horaEmprestimo;
+            this.dataEmprestimo = LocalDateTime.now();
             this.livro = livro;
             this.usuario = usuario;
 	}
@@ -110,15 +107,14 @@ public class Emprestimo implements DAO {
 	}
 	@Override
 	public String atualizar() {
-		Emprestimo emprestimo = ler(codigo);
-		emprestimo.setCodigo(codigo);
-		emprestimo.setDataEmprestimo(dataEmprestimo);
-		emprestimo.setHoraEmprestimo(horaEmprestimo);
-		emprestimo.setLivro(livro);
-		emprestimo.setUsuario(usuario);
-		emprestimo.excluir();
-		emprestimo.gravar();
-		return null;
+            Emprestimo emprestimo = ler(codigo);
+            emprestimo.setCodigo(codigo);
+            emprestimo.setDataEmprestimo(dataEmprestimo);
+            emprestimo.setLivro(livro);
+            emprestimo.setUsuario(usuario);
+            emprestimo.excluir();
+            emprestimo.gravar();
+            return null;
 	}
 	
 	

@@ -50,6 +50,17 @@ public class ControllerTelaInformacoes implements Initializable {
     }
     
     @FXML
+    void getTelaEmprestimo(ActionEvent event) throws IOException {
+        Parent menuRecebimento = FXMLLoader.load(getClass().getResource("/br/com/biblioteca/view/FXMLTelaEmprestimo.fxml"));
+        AnchorPane.setTopAnchor(menuRecebimento, 72.0);
+        AnchorPane.setBottomAnchor(menuRecebimento, 23.0);
+        AnchorPane.setLeftAnchor(menuRecebimento, 23.0);
+        AnchorPane.setRightAnchor(menuRecebimento, 23.0);
+        Pane.getChildren().setAll(menuRecebimento);
+    }
+
+    
+    @FXML
     void cadastrarFuncionario() {
         TelaCadastroFuncionario tela = new TelaCadastroFuncionario();
         try {

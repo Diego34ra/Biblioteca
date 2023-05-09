@@ -10,8 +10,12 @@ import br.com.biblioteca.model.Usuario;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
@@ -23,14 +27,14 @@ public class ObraServices {
     public static Boolean createObra(Obra obra){
         Boolean valida = false;
         try {
-                FileOutputStream file = new FileOutputStream("C:\\Users\\Developer\\Documents\\GitHub\\Biblioteca\\src\\biblioteca\\obra\\" + obra.getCodigo());
-                ObjectOutputStream stream = new ObjectOutputStream(file);
-                stream.writeObject(obra);
-                stream.flush();
-                valida = true;
+            FileOutputStream file = new FileOutputStream("C:\\Users\\Developer\\Documents\\GitHub\\Biblioteca\\src\\biblioteca\\obra\\" + obra.getCodigo());
+            ObjectOutputStream stream = new ObjectOutputStream(file);
+            stream.writeObject(obra);
+            stream.flush();
+            valida = true;
         } catch (Exception erro) {
-                System.out.println("Falha na gravação \n" + erro.toString());
-                return valida;
+            System.out.println("Falha na gravação \n" + erro.toString());
+            return valida;
         }
         return valida;
     }
@@ -72,5 +76,21 @@ public class ObraServices {
             return null;
         }
         return obra;
+    }
+    
+    public static void deleteById(long codigo) {
+        Path path = Paths.get("src/biblioteca/obra/"+codigo); 
+        try {
+            boolean result = Files.deleteIfExists(path);
+            if (result) {
+                System.out.println("Obra deletada com sucesso.");
+            }
+            else {
+                System.out.println("Erro ao deletar usuario.");
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

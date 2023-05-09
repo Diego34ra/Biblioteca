@@ -13,13 +13,30 @@ import java.nio.file.Paths;
 public class Livro extends Obra implements DAO, Serializable{
 	
 	private String autores;
-//	private String area;
+	private String titulo;
 	private String editora;
+        private String status;
 	private int ano;
 	private int edicao;
 	private int numFolhas;
 	private boolean emprestimo;
-	
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+        
 	public boolean isEmprestimo() {
 		return emprestimo;
 	}
@@ -64,11 +81,12 @@ public class Livro extends Obra implements DAO, Serializable{
 	}
 	
 	
-	public Livro(String tipo, String autores, String nome, String editora, int ano,
+	public Livro(String tipo, String autores, String nome, String titulo, String editora, int ano,
 			int edicao, int numFolhas, Boolean digital) {
 		super(tipo, digital,nome);
 		this.autores = autores;
-//		this.area = area;
+                this.titulo = titulo;
+		this.status = "Livre";
 		this.editora = editora;
 		this.ano = ano;
 		this.edicao = edicao;
@@ -141,7 +159,8 @@ public class Livro extends Obra implements DAO, Serializable{
 		livro.setEmprestimo(emprestimo);
 		livro.setNumFolhas(numFolhas);
 		livro.setTipo(this.getTipo());
-		livro.setNome(this.getNome());
+                livro.setNome(getNome());
+		livro.setTitulo(titulo);
 		livro.excluir();
 		livro.gravar();
 		return null;

@@ -69,7 +69,7 @@ public class ControllerTelaCadastroEstudante implements Initializable {
         } else{
             sexo = "Feminino";
         }
- 
+        System.out.println("nome do estudante ="+txNome.getText());
         Usuario usuario = new Estudante(Integer.parseInt(txIdade.getText()), txNome.getText(),
                                              sexo, txTelefone.getText(), txCurso.getText(),
                                         txSenha.getText(),Long.parseLong(txMatriculo.getText()));

@@ -1,8 +1,9 @@
 package br.com.biblioteca.model;
 
-public abstract class Pessoa {
+import java.io.Serializable;
+
+public abstract class Pessoa implements Serializable{
 	private int idade;
-	private String nome;
 
 	public int getIdade() {
 		return idade;
@@ -10,16 +11,10 @@ public abstract class Pessoa {
 	public void setIdade(int idade) {
 		this.idade = idade;
 	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public Pessoa(int idade, String nome) {
+
+	public Pessoa(int idade) {
 		super();
 		this.idade = idade;
-		this.nome = nome;
 	}
 	public Pessoa() {
 		super();

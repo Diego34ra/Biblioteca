@@ -9,19 +9,20 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.Random;
 
 /**
  *
  * @author 2022101202010058
  */
-public class Reserva implements DAO{
+public class Reserva implements DAO, Serializable{
     private long codigo;
-    private String dataEmprestimo;
-    private String horaEmprestimo;
+    private LocalDateTime dataEmprestimo;
     private Livro livro;
     private Usuario usuario;
 	
@@ -31,18 +32,15 @@ public class Reserva implements DAO{
     public void setCodigo(long codigo) {
             this.codigo = codigo;
     }
-    public String getDataEmprestimo() {
-            return dataEmprestimo;
+
+    public LocalDateTime getDataEmprestimo() {
+        return dataEmprestimo;
     }
-    public void setDataEmprestimo(String dataEmprestimo) {
-            this.dataEmprestimo = dataEmprestimo;
+
+    public void setDataEmprestimo(LocalDateTime dataEmprestimo) {
+        this.dataEmprestimo = dataEmprestimo;
     }
-    public String getHoraEmprestimo() {
-            return horaEmprestimo;
-    }
-    public void setHoraEmprestimo(String horaEmprestimo) {
-            this.horaEmprestimo = horaEmprestimo;
-    }
+    
     public Livro getLivro() {
             return livro;
     }
@@ -61,12 +59,11 @@ public class Reserva implements DAO{
             System.out.println("Devolvendo o livro.");
     }
 
-    public Reserva(String dataEmprestimo, String horaEmprestimo, Livro livro, Usuario usuario) {
+    public Reserva(Livro livro, Usuario usuario) {
         super();
         Random random = new Random();
         this.codigo = (long) (random.nextDouble() * 10000000000L);
-        this.dataEmprestimo = dataEmprestimo;
-        this.horaEmprestimo = horaEmprestimo;
+        this.dataEmprestimo = LocalDateTime.now();
         this.livro = livro;
         this.usuario = usuario;
     }
@@ -120,7 +117,6 @@ public class Reserva implements DAO{
         Reserva Reserva = ler(codigo);
         Reserva.setCodigo(codigo);
         Reserva.setDataEmprestimo(dataEmprestimo);
-        Reserva.setHoraEmprestimo(horaEmprestimo);
         Reserva.setLivro(livro);
         Reserva.setUsuario(usuario);
         Reserva.excluir();

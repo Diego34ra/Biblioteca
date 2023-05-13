@@ -1,5 +1,7 @@
 package br.com.biblioteca.controller;
 
+import biblioteca.Global;
+import br.com.biblioteca.model.Funcionario;
 import br.com.biblioteca.view.TelaCadastroFuncionario;
 import br.com.biblioteca.view.TelaCadastroLivro;
 import br.com.biblioteca.view.TelaCadastroProfessor;
@@ -14,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -26,6 +29,9 @@ public class ControllerTelaInformacoes implements Initializable {
     
     @FXML
     private MenuItem menuUsuario;
+    
+    @FXML
+    private Menu menuCadastrar;
 
     @FXML
     void cadastrarUsuario() throws IOException {
@@ -52,6 +58,16 @@ public class ControllerTelaInformacoes implements Initializable {
     @FXML
     void getTelaEmprestimo(ActionEvent event) throws IOException {
         Parent menuRecebimento = FXMLLoader.load(getClass().getResource("/br/com/biblioteca/view/FXMLTelaEmprestimo.fxml"));
+        AnchorPane.setTopAnchor(menuRecebimento, 72.0);
+        AnchorPane.setBottomAnchor(menuRecebimento, 23.0);
+        AnchorPane.setLeftAnchor(menuRecebimento, 23.0);
+        AnchorPane.setRightAnchor(menuRecebimento, 23.0);
+        Pane.getChildren().setAll(menuRecebimento);
+    }
+    
+    @FXML
+    void getReserva() throws IOException {
+        Parent menuRecebimento = FXMLLoader.load(getClass().getResource("/br/com/biblioteca/view/FXMLTelaReserva.fxml"));
         AnchorPane.setTopAnchor(menuRecebimento, 72.0);
         AnchorPane.setBottomAnchor(menuRecebimento, 23.0);
         AnchorPane.setLeftAnchor(menuRecebimento, 23.0);
@@ -94,7 +110,10 @@ public class ControllerTelaInformacoes implements Initializable {
 		
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        menuCadastrar.setVisible(false);
+        if (Global.usuario instanceof Funcionario) {
+            menuCadastrar.setVisible(true);
+        }
     }
 
 }

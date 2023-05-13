@@ -18,12 +18,12 @@
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#getTelaAcervo" text="Acervo" />
                   <MenuItem mnemonicParsing="false" onAction="#getTelaEmprestimo" text="Emprestimos" />
-                  <MenuItem mnemonicParsing="false" text="Reservas" />
+                  <MenuItem mnemonicParsing="false" onAction="#getReserva" text="Reservas" />
               </items>
             </Menu>
-          <Menu mnemonicParsing="false" style="-fx-font-size: 16px;" text="Cadastrar">
+          <Menu fx:id="menuCadastrar" mnemonicParsing="false" style="-fx-font-size: 16px;" text="Cadastrar">
             <items>
-              <MenuItem fx:id="menuUsuario" mnemonicParsing="false" onAction="#cadastrarUsuario" text="Usuário" />
+              <MenuItem fx:id="menuUsuario" mnemonicParsing="false" onAction="#cadastrarUsuario" text="Estudante" />
                   <MenuItem mnemonicParsing="false" onAction="#cadastrarLivro" text="Livro" />
                   <MenuItem mnemonicParsing="false" onAction="#cadastrarProfessor" text="Professor" />
                   <MenuItem mnemonicParsing="false" onAction="#cadastrarFuncionario" text="Funcionário" />

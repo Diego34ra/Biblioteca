@@ -6,14 +6,12 @@ package br.com.biblioteca.controller;
 
 import biblioteca.Alertas;
 import biblioteca.Global;
-import br.com.biblioteca.model.Emprestimo;
+import br.com.biblioteca.model.Reserva;
 import br.com.biblioteca.model.Funcionario;
 import br.com.biblioteca.model.Livro;
-import br.com.biblioteca.model.Obra;
+import br.com.biblioteca.model.Reserva;
 import br.com.biblioteca.model.Usuario;
-import br.com.biblioteca.services.EmprestimoServices;
-import br.com.biblioteca.services.ObraServices;
-import br.com.biblioteca.view.TelaLivro;
+import br.com.biblioteca.services.ReservaServices;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -38,14 +36,14 @@ import javafx.stage.Stage;
  *
  * @author Diego
  */
-public class ControllerTelaEmprestimo implements Initializable{
+public class ControllerTelaReserva implements Initializable{
     
     @FXML
-    private TableView<Emprestimo> tbEmprestimo;
-    private final TableColumn cellEmprestimoId = new TableColumn("Código");
-    private final TableColumn<Emprestimo,Usuario> cellEmprestimoUsuario = new TableColumn("Usuario");
-    private final TableColumn<Emprestimo,Livro> cellEmprestimoLivro = new TableColumn("Livro");
-    private final TableColumn<Emprestimo,Emprestimo> cellEmprestimoDevolver = new TableColumn("Devolver");
+    private TableView<Reserva> tbReserva;
+    private final TableColumn cellReservaId = new TableColumn("Código");
+    private final TableColumn<Reserva,Usuario> cellReservaUsuario = new TableColumn("Usuario");
+    private final TableColumn<Reserva,Livro> cellReservaLivro = new TableColumn("Livro");
+    private final TableColumn<Reserva,Reserva> cellReservaDevolver = new TableColumn("Deletar");
 
     @FXML
     private TextField txConsulta;
@@ -54,14 +52,14 @@ public class ControllerTelaEmprestimo implements Initializable{
     private ComboBox<String> cbConsulta;
 
     @FXML
-    void getEmprestimo() {
-        ObservableList<Emprestimo> obj = null;
+    void getReserva() {
+        ObservableList<Reserva> obj = null;
         switch (cbConsulta.getSelectionModel().getSelectedItem()) {
             case "Todos":
-                obj = FXCollections.observableArrayList(EmprestimoServices.findAll());
+                obj = FXCollections.observableArrayList(ReservaServices.findAll());
                 break;
             case "Código":
-                obj = FXCollections.observableArrayList(EmprestimoServices.findById(txConsulta.getText()));
+                obj = FXCollections.observableArrayList(ReservaServices.findById(txConsulta.getText()));
                 break;
             default:
                 throw new AssertionError();
@@ -69,23 +67,23 @@ public class ControllerTelaEmprestimo implements Initializable{
         carregaTabelaAcervo(obj);
     }
     
-    private void carregaTabelaAcervo(ObservableList<Emprestimo> list){
-        tbEmprestimo.getColumns().clear();
+    private void carregaTabelaAcervo(ObservableList<Reserva> list){
+        tbReserva.getColumns().clear();
         formataTabelaAcervo();
-        tbEmprestimo.setItems(list);
+        tbReserva.setItems(list);
         if(Global.usuario instanceof Funcionario){
-           tbEmprestimo.getColumns().addAll(cellEmprestimoId,cellEmprestimoUsuario,cellEmprestimoLivro,cellEmprestimoDevolver); 
+           tbReserva.getColumns().addAll(cellReservaId,cellReservaUsuario,cellReservaLivro,cellReservaDevolver); 
         } else {
-            tbEmprestimo.getColumns().addAll(cellEmprestimoId,cellEmprestimoUsuario,cellEmprestimoLivro,cellEmprestimoDevolver); 
+            tbReserva.getColumns().addAll(cellReservaId,cellReservaUsuario,cellReservaLivro,cellReservaDevolver); 
         }
     }
     
     private void formataTabelaAcervo(){
-        cellEmprestimoId.setMinWidth(100);
-        cellEmprestimoId.setPrefWidth(120);
-        cellEmprestimoId.setResizable(false);
-        cellEmprestimoId.setCellValueFactory (new PropertyValueFactory <> ( "codigo" ));
-        cellEmprestimoId.setCellFactory( cell -> {              
+        cellReservaId.setMinWidth(100);
+        cellReservaId.setPrefWidth(120);
+        cellReservaId.setResizable(false);
+        cellReservaId.setCellValueFactory (new PropertyValueFactory <> ( "codigo" ));
+        cellReservaId.setCellFactory( cell -> {              
             return new TableCell<AbstractMethodError, Long>() {
                 @Override
                 protected void updateItem( Long item, boolean empty) {
@@ -99,14 +97,14 @@ public class ControllerTelaEmprestimo implements Initializable{
                 }
             };
          });
-        cellEmprestimoId.setStyle("-fx-alignment: center;");
+        cellReservaId.setStyle("-fx-alignment: center;");
         
-        cellEmprestimoUsuario.setMinWidth(200);
-        cellEmprestimoUsuario.setPrefWidth(340);
-        cellEmprestimoUsuario.setResizable(false);
-        cellEmprestimoUsuario.setCellValueFactory (new PropertyValueFactory <> ( "usuario" ));
-        cellEmprestimoUsuario.setCellFactory( col -> {              
-            return new TableCell<Emprestimo, Usuario>() {
+        cellReservaUsuario.setMinWidth(200);
+        cellReservaUsuario.setPrefWidth(340);
+        cellReservaUsuario.setResizable(false);
+        cellReservaUsuario.setCellValueFactory (new PropertyValueFactory <> ( "usuario" ));
+        cellReservaUsuario.setCellFactory( col -> {              
+            return new TableCell<Reserva, Usuario>() {
                 @Override
                 protected void updateItem( Usuario item, boolean empty) {
                    super.updateItem(item, empty);
@@ -120,15 +118,15 @@ public class ControllerTelaEmprestimo implements Initializable{
                 }
             };
          });
-        cellEmprestimoUsuario.setStyle("-fx-alignment: center;");
+        cellReservaUsuario.setStyle("-fx-alignment: center;");
         
         
-        cellEmprestimoLivro.setMinWidth(200);
-        cellEmprestimoLivro.setPrefWidth(340);
-        cellEmprestimoLivro.setResizable(false);
-        cellEmprestimoLivro.setCellValueFactory (new PropertyValueFactory <> ( "livro" ));
-        cellEmprestimoLivro.setCellFactory( col -> {              
-            return new TableCell<Emprestimo, Livro>() {
+        cellReservaLivro.setMinWidth(200);
+        cellReservaLivro.setPrefWidth(340);
+        cellReservaLivro.setResizable(false);
+        cellReservaLivro.setCellValueFactory (new PropertyValueFactory <> ( "livro" ));
+        cellReservaLivro.setCellFactory( col -> {              
+            return new TableCell<Reserva, Livro>() {
                 @Override
                 protected void updateItem( Livro item, boolean empty) {
                    super.updateItem(item, empty);
@@ -141,16 +139,16 @@ public class ControllerTelaEmprestimo implements Initializable{
                 }
             };
          });
-        cellEmprestimoLivro.setStyle("-fx-alignment: center;");
+        cellReservaLivro.setStyle("-fx-alignment: center;");
         
-        cellEmprestimoDevolver.setMinWidth(50);
-        cellEmprestimoDevolver.setPrefWidth(90);
-        cellEmprestimoDevolver.setResizable(false);
-        cellEmprestimoDevolver.setStyle("-fx-alignment: center;");
-        cellEmprestimoDevolver.setCellFactory(col -> {
-            TableCell<Emprestimo, Emprestimo> cell = new TableCell<Emprestimo, Emprestimo>() {
+        cellReservaDevolver.setMinWidth(50);
+        cellReservaDevolver.setPrefWidth(90);
+        cellReservaDevolver.setResizable(false);
+        cellReservaDevolver.setStyle("-fx-alignment: center;");
+        cellReservaDevolver.setCellFactory(col -> {
+            TableCell<Reserva, Reserva> cell = new TableCell<Reserva, Reserva>() {
                 @Override
-                public void updateItem(Emprestimo item, boolean empty) {
+                public void updateItem(Reserva item, boolean empty) {
                     final Tooltip infAjuda = new Tooltip();
                     infAjuda.setText("Buscar detalhe da obra");
                     Button botao = new Button();
@@ -171,7 +169,7 @@ public class ControllerTelaEmprestimo implements Initializable{
                     } else {
                         botao.setOnAction(event -> 
                             { 
-                                EmprestimoServices.deleteById(getTableView().getItems().get(getIndex()).getCodigo());
+                                ReservaServices.deleteById(getTableView().getItems().get(getIndex()).getCodigo());
                                 Alertas.alertaInformacao("Sucesso", "Renovação realizada com sucesso.");
                             }
                         );

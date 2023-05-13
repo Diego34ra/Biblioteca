@@ -9,7 +9,10 @@ import biblioteca.Global;
 import br.com.biblioteca.model.Emprestimo;
 import br.com.biblioteca.model.Livro;
 import br.com.biblioteca.model.Obra;
+import br.com.biblioteca.model.Reserva;
 import br.com.biblioteca.services.EmprestimoServices;
+import br.com.biblioteca.services.ObraServices;
+import br.com.biblioteca.services.ReservaServices;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -44,8 +47,9 @@ public class ControllerTelaLivro implements Initializable{
     private final TableColumn cellLivroEdicao = new TableColumn("Edição");
     private final TableColumn cellLivroAno = new TableColumn("Ano");
     private final TableColumn cellLivroNumFolha = new TableColumn("Páginas");
-    private final TableColumn cellLivroStatus = new TableColumn("Páginas");
+    private final TableColumn cellLivroStatus = new TableColumn("Status");
     private final TableColumn<Livro,Livro> cellLivroEmprestar = new TableColumn("Emprestimo");
+    private final TableColumn<Livro,Livro> cellLivroRenovar = new TableColumn("Renovar");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -64,7 +68,7 @@ public class ControllerTelaLivro implements Initializable{
         tbLivro.getColumns().clear();
         formataTabelaLivro();
         tbLivro.setItems(list);
-        tbLivro.getColumns().addAll(cellLivroId,cellLivroNome,cellLivroDigital,cellLivroAutor,cellLivroEditora,cellLivroEdicao,cellLivroAno, cellLivroNumFolha, cellLivroStatus, cellLivroEmprestar);
+        tbLivro.getColumns().addAll(cellLivroId,cellLivroNome,cellLivroDigital,cellLivroAutor,cellLivroEditora,cellLivroEdicao,cellLivroAno, cellLivroNumFolha, cellLivroStatus, cellLivroEmprestar,cellLivroRenovar);
     }
     
     private void formataTabelaLivro(){
@@ -165,15 +169,62 @@ public class ControllerTelaLivro implements Initializable{
                         botao.setOnAction(event -> 
                             { 
                                 if (Global.livro.isEmprestimo()) {
-                                    Emprestimo emprestimo = new Emprestimo(Global.livro,Global.usuario);
-                                    System.out.println("Usuario = "+ Global.usuario.getNome());
-                                    System.out.println("Livro = "+ Global.livro.getTitulo());
+                                    Emprestimo emprestimo = new Emprestimo(Global.livro,Global.usuario); 
                                     EmprestimoServices.createEmprestimo(emprestimo);
                                     Global.livro.setEmprestimo(false);
+                                    ObraServices.deleteById(Global.livro.getCodigo());
+                                    ObraServices.createObra(Global.livro);
                                     Alertas.alertaInformacao("Sucesso", "Emprestimo realizado com sucesso.");
                                 } else { 
-                                    Alertas.alertaInformacao("Erro", "Livro não está livre para emprestimo.");
+                                    if (Alertas.confirmacao("Livro já emprestado!", "Deseja fazer reserva do livro?") == 1) {
+                                        Reserva reserva = new Reserva(Global.livro,Global.usuario);
+                                        ReservaServices.create(reserva);
+                                        Alertas.alertaInformacao("Sucesso", "Reserva realizada com sucesso.");
+                                    }
                                 }
+                            }
+                        );
+                        setGraphic(botao);
+                    }
+                }
+            };
+            return cell ;
+        });
+        
+        cellLivroRenovar.setMinWidth(50);
+        cellLivroRenovar.setPrefWidth(80);
+        cellLivroRenovar.setResizable(false);
+        cellLivroRenovar.setStyle("-fx-alignment: center;");
+        cellLivroRenovar.setCellFactory(col -> {
+            TableCell<Livro, Livro> cell = new TableCell<Livro, Livro>() {
+                @Override
+                public void updateItem(Livro item, boolean empty) {
+                    final Tooltip infAjuda = new Tooltip();
+                    infAjuda.setText("Buscar detalhe da obra");
+                    Button botao = new Button();
+                    File file = new File("C:/Users/Developer/Documents/GitHub/Biblioteca/img/realizar.png");
+                    Image imagem = new Image(file.toURI().toString());
+                    ImageView imv = new ImageView();
+                    {
+                        imv.setFitHeight(20l);
+                        imv.setFitWidth(20l);
+                    }
+                    imv.setImage(imagem);
+                    botao.setPickOnBounds(true);
+                    botao.setGraphic(imv);
+                    botao.setAlignment(Pos.CENTER);
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                    } else {
+                        botao.setOnAction(event -> 
+                            { 
+                                if (!Global.livro.isEmprestimo()) {
+                                    Global.livro.setEmprestimo(true);
+                                    ObraServices.deleteById(Global.livro.getCodigo());
+                                    ObraServices.createObra(Global.livro);
+                                    Alertas.alertaInformacao("Sucesso", "Renovação realizada com sucesso.");
+                                } 
                             }
                         );
                         setGraphic(botao);

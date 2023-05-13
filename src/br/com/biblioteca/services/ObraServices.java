@@ -79,7 +79,7 @@ public class ObraServices {
     }
     
     public static void deleteById(long codigo) {
-        Path path = Paths.get("src/biblioteca/obra/"+codigo); 
+        Path path = Paths.get("C:\\Users\\Developer\\Documents\\GitHub\\Biblioteca\\src\\biblioteca\\obra\\"+codigo); 
         try {
             boolean result = Files.deleteIfExists(path);
             if (result) {

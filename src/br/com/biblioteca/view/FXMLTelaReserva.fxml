@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.biblioteca.controller.ControllerTelaReserva">
+   <children>
+      <TableView fx:id="tbReserva" layoutX="20.0" layoutY="72.0" prefHeight="305.0" prefWidth="557.0" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="23.0" AnchorPane.topAnchor="72.0" />
+      <Button layoutX="345.0" layoutY="28.0" mnemonicParsing="false" onAction="#getReserva" text="Buscar" />
+      <TextField fx:id="txConsulta" alignment="CENTER" layoutX="183.0" layoutY="28.0" promptText="consulta" />
+      <ComboBox fx:id="cbConsulta" layoutX="20.0" layoutY="28.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>

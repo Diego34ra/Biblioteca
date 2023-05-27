@@ -5,6 +5,7 @@
 package biblioteca;
 
 import br.com.biblioteca.model.Livro;
+import br.com.biblioteca.model.Obra;
 import br.com.biblioteca.model.Usuario;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ public class Global {
     public static String email;
     public static Usuario usuario = new Usuario();
     public static Livro livro;
+    public static Obra obra;
     
     
     public static List<String>  tipoConsulta(String tipo){
@@ -28,6 +30,10 @@ public class Global {
             case "acervo":
                 tipoConsulta.add("Todos");
                 tipoConsulta.add("Código");
+                break;
+            case "emprestimo":
+                tipoConsulta.add("Todos");
+                tipoConsulta.add("Código da Obra");
                 break;
             default:
                 throw new AssertionError();

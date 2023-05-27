@@ -111,7 +111,7 @@ public class ControllerTelaInformacoes implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         menuCadastrar.setVisible(false);
-        if (Global.usuario instanceof Funcionario) {
+        if (Global.usuario.getTipo().equals("Funcionario") ) {
             menuCadastrar.setVisible(true);
         }
     }

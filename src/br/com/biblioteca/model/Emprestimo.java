@@ -1,44 +1,37 @@
 package br.com.biblioteca.model;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDateTime;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Random;
 
-public class Emprestimo implements DAO, Serializable {
+public class Emprestimo implements Serializable {
 	
-	private long codigo;
-	private LocalDateTime dataEmprestimo;
-	private Livro livro;
-	private Usuario usuario;
-	
-	public long getCodigo() {
-		return codigo;
-	}
-	public void setCodigo(long codigo) {
-		this.codigo = codigo;
-	}
+    private Integer codigo;
+    private Date dataEmprestimo;
+    private Obra obra;
+    private Usuario usuario;
 
-    public LocalDateTime getDataEmprestimo() {
+    public Integer getCodigo() {
+            return codigo;
+    }
+    public void setCodigo(Integer codigo) {
+            this.codigo = codigo;
+    }
+
+    public Date getDataEmprestimo() {
         return dataEmprestimo;
     }
 
-    public void setDataEmprestimo(LocalDateTime dataEmprestimo) {
+    public void setDataEmprestimo(Date dataEmprestimo) {
         this.dataEmprestimo = dataEmprestimo;
     }
 	
-	public Livro getLivro() {
-		return livro;
+	public Obra getObra() {
+		return obra;
 	}
-	public void setLivro(Livro livro) {
-		this.livro = livro;
+	public void setObra(Obra obra) {
+		this.obra = obra;
 	}
 	public Usuario getUsuario() {
 		return usuario;
@@ -48,73 +41,21 @@ public class Emprestimo implements DAO, Serializable {
 	}
 	
 	void devolverLivro() {
-		livro.setEmprestimo(true);
+		obra.setEmprestimo(true);
 		System.out.println("Devolvendo o livro.");
 	}
 	
-	public Emprestimo(Livro livro, Usuario usuario) {
+	public Emprestimo(Obra obra, Usuario usuario) {
             super();
             Random random = new Random();
-            this.codigo = (long) (random.nextDouble() * 10000000000L);
-            this.dataEmprestimo = LocalDateTime.now();
-            this.livro = livro;
+            Integer codigo = random.nextInt(99999 - 1000 + 1) + 1000;
+            this.dataEmprestimo = Date.valueOf(LocalDate.now());
+            this.obra = obra;
             this.usuario = usuario;
 	}
 	
 	public Emprestimo() {
 		super();
-	}
-	@Override
-	public String gravar() {
-		String ret = "Emprestimo armazenado com sucesso!";
-		try {
-			FileOutputStream file = new FileOutputStream("C:\\Users\\2022101202010058\\Desktop\\Biblioteca\\Emprestimo\\" + this.getCodigo());
-			ObjectOutputStream stream = new ObjectOutputStream(file);
-			stream.writeObject(this);
-			stream.flush();
-		} catch (Exception erro) {
-			ret = "Falha na gravação \n" + erro.toString();
-		}
-		return ret;
-	}
-	@Override
-	public void excluir() {
-		Path path = Paths.get("C:\\Users\\2022101202010058\\Desktop\\Biblioteca\\Emprestimo\\"+this.getCodigo());
-        try {
-            boolean result = Files.deleteIfExists(path);
-            if (result) {
-                System.out.println("File is successfully deleted.");
-            }
-            else {
-                System.out.println("File deletion failed.");
-            }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-	}
-	@Override
-	public Emprestimo ler(long codigo) {
-		try {
-			FileInputStream file = new FileInputStream("C:\\Users\\2022101202010058\\Desktop\\Biblioteca\\Emprestimo\\" + codigo);
-			ObjectInputStream stream = new ObjectInputStream(file);
-			return((Emprestimo) stream.readObject());
-			
-		} catch (Exception erro) {
-			System.out.println("Falha na leitura \n" + erro.toString());
-			return null;
-		}
-	}
-	@Override
-	public String atualizar() {
-            Emprestimo emprestimo = ler(codigo);
-            emprestimo.setCodigo(codigo);
-            emprestimo.setDataEmprestimo(dataEmprestimo);
-            emprestimo.setLivro(livro);
-            emprestimo.setUsuario(usuario);
-            emprestimo.excluir();
-            emprestimo.gravar();
-            return null;
 	}
 	
 	

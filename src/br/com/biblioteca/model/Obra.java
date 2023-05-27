@@ -5,11 +5,20 @@ import java.util.Random;
 
 public class Obra implements Serializable{
 	
-	private long codigo;
+	private Integer codigo;
         private String nome;
 	private String tipo;
         private Boolean digital;
+        private Boolean emprestimo;
 
+    public Boolean getEmprestimo() {
+        return emprestimo;
+    }
+
+    public void setEmprestimo(Boolean emprestimo) {
+        this.emprestimo = emprestimo;
+    }
+        
     public String getNome() {
         return nome;
     }
@@ -26,10 +35,10 @@ public class Obra implements Serializable{
         this.digital = digital;
     }
 
-    public long getCodigo() {
+    public Integer getCodigo() {
             return codigo;
     }
-    public void setCodigo(long codigo) {
+    public void setCodigo(Integer codigo) {
             this.codigo = codigo;
     }
     public String getTipo() {
@@ -42,11 +51,12 @@ public class Obra implements Serializable{
     public Obra(String tipo, Boolean digital, String nome) {
             super();
             Random random = new Random();
-            long codigo = (long) (random.nextDouble() * 10000000000L);
+            Integer codigo = random.nextInt(99999 - 1000 + 1) + 1000;
             this.codigo = codigo;
             this.digital = digital;
             this.tipo = tipo;
             this.nome = nome;
+            this.emprestimo = true;
     }
     public Obra() {
     }

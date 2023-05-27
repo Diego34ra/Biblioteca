@@ -5,13 +5,11 @@
 package br.com.biblioteca.controller;
 
 import biblioteca.Alertas;
+import br.com.biblioteca.dao.UsuarioDao;
 import br.com.biblioteca.model.Funcionario;
-import br.com.biblioteca.model.Professor;
 import br.com.biblioteca.model.Usuario;
-import br.com.biblioteca.services.UsuarioServices;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
@@ -51,6 +49,8 @@ public class ControllerTelaCadastroFuncionario implements Initializable{
     @FXML
     private TextField txSalario;
 
+    private final UsuarioDao usuarioDao = new UsuarioDao();
+    
     @FXML
     void setFeminino( ) {
         cbMasculino.setSelected(false);
@@ -78,9 +78,9 @@ public class ControllerTelaCadastroFuncionario implements Initializable{
  
         Usuario usuario = new Funcionario(Integer.parseInt(txIdade.getText()), txNome.getText(),
                                              sexo, txTelefone.getText(), Double.valueOf(txSalario.getText()),
-                                        txSenha.getText(), Long.parseLong(txMatriculo.getText()));
+                                        txSenha.getText(), Integer.valueOf(txMatriculo.getText()),"Funcionario");
         
-        if(UsuarioServices.create(usuario)){
+        if(usuarioDao.create(usuario)){
             Alertas.alertaInformacao("Sucesso!", "Usuário cadastrado com sucesso!");
             //Fecha a tela atual
             Stage stage = (Stage) Pane.getScene().getWindow();

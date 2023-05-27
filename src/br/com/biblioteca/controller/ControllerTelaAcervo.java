@@ -5,11 +5,8 @@
 package br.com.biblioteca.controller;
 
 import biblioteca.Global;
-import br.com.biblioteca.model.Funcionario;
-import br.com.biblioteca.model.Livro;
+import br.com.biblioteca.dao.ObraDao;
 import br.com.biblioteca.model.Obra;
-import br.com.biblioteca.services.ObraServices;
-import br.com.biblioteca.view.TelaCadastroUser;
 import br.com.biblioteca.view.TelaLivro;
 import java.io.File;
 import java.net.URL;
@@ -51,11 +48,13 @@ public class ControllerTelaAcervo implements Initializable{
     private final TableColumn<Obra,Obra> cellAcervoDetalhes = new TableColumn("Detalhes");
     private final TableColumn<Obra,Obra> cellAcervoDelete = new TableColumn("Deletar");
     
+    private ObraDao obraDao = new ObraDao();
+    
     private void carregaTabelaAcervo(ObservableList<Obra> list){
         tbAcervo.getColumns().clear();
         formataTabelaAcervo();
         tbAcervo.setItems(list);
-        if(Global.usuario instanceof Funcionario){
+        if(Global.usuario.getTipo().equals("Funcionario") ){
            tbAcervo.getColumns().addAll(cellAcervoId,cellAcervoNome,cellAcervotipo,cellAcervoDetalhes, cellAcervoDelete); 
         } else {
             tbAcervo.getColumns().addAll(cellAcervoId,cellAcervoNome,cellAcervotipo,cellAcervoDetalhes); 
@@ -68,10 +67,10 @@ public class ControllerTelaAcervo implements Initializable{
         ObservableList<Obra> obj = null;
         switch (cbConsulta.getSelectionModel().getSelectedItem()) {
             case "Todos":
-                obj = FXCollections.observableArrayList(ObraServices.findAll());
+                obj = FXCollections.observableArrayList(obraDao.findAll());
                 break;
             case "Código":
-                obj = FXCollections.observableArrayList(ObraServices.findById(txConsulta.getText()));
+                obj = FXCollections.observableArrayList(obraDao.findById(Integer.valueOf(txConsulta.getText())));
                 break;
             default:
                 throw new AssertionError();
@@ -86,9 +85,9 @@ public class ControllerTelaAcervo implements Initializable{
         cellAcervoId.setResizable(false);
         cellAcervoId.setCellValueFactory (new PropertyValueFactory <> ( "codigo" ));
         cellAcervoId.setCellFactory( cell -> {              
-            return new TableCell<AbstractMethodError, Long>() {
+            return new TableCell<AbstractMethodError, Integer>() {
                 @Override
-                protected void updateItem( Long item, boolean empty) {
+                protected void updateItem( Integer item, boolean empty) {
                    super.updateItem(item, empty);
                    if(item == null|| empty) {
                        setText("");
@@ -142,9 +141,9 @@ public class ControllerTelaAcervo implements Initializable{
                         botao.setOnAction(event -> 
                             { 
                                 Obra obra = getTableView().getItems().get(getIndex());
-                                switch (getTableView().getItems().get(getIndex()).getTipo()) {
+                                Global.obra = obra;
+                                switch (obra.getTipo()) {
                                     case "Livro":
-                                        Global.livro = (Livro) obra;
                                         TelaLivro tela = new TelaLivro();
                                         try {
                                             tela.start(new Stage());
@@ -197,10 +196,6 @@ public class ControllerTelaAcervo implements Initializable{
                     } else {
                         botao.setOnAction(event -> 
                             { 
-                                Obra obra = getTableView().getItems().get(getIndex());
-                                ObraServices.deleteById(obra.getCodigo());
-                                ObservableList<Obra> obj = FXCollections.observableArrayList(ObraServices.findAll());
-                                carregaTabelaAcervo(obj);
                             }
                         );
                         setGraphic(botao);

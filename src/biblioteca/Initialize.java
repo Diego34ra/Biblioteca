@@ -21,6 +21,7 @@ public class Initialize {
                         "  `nome` varchar(45) NOT NULL,\n" +
                         "  `tipo` varchar(45) NOT NULL,\n" +
                         "  `digital` tinyint(1) NOT NULL,\n" +
+                        "  `emprestimo` tinyint(1) NOT NULL,\n" +
                         "  PRIMARY KEY (`codObra`)\n" +
                         ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
         }
@@ -33,7 +34,6 @@ public class Initialize {
                         "  `ano` int(11) NOT NULL,\n" +
                         "  `edicao` int(11) NOT NULL,\n" +
                         "  `numFolhas` int(11) NOT NULL,\n" +
-                        "  `emprestimo` tinyint(1) NOT NULL,\n" +
                         "  PRIMARY KEY (`codObra`),\n" +
                         "  CONSTRAINT `Obra_Livro` FOREIGN KEY (`codObra`) REFERENCES `obra` (`codObra`) ON DELETE CASCADE ON UPDATE CASCADE\n" +
                         ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");

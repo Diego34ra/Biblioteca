@@ -18,8 +18,13 @@ public class Professor extends Usuario{
 	
         
         
-	public Professor(int idade, String nome, String sexo, String telefone, String especialidade, String senha, Long matricula) {
+	public Professor(int idade, String nome, String sexo, String telefone, String especialidade, String senha, Integer matricula) {
 		super(idade, nome, sexo, telefone, senha, matricula);
+		this.especialidade = especialidade;
+	}
+        
+        public Professor(int idade, String nome, String sexo, String telefone, String especialidade, String senha, Integer matricula, String tipo) {
+		super(idade, nome, sexo, telefone, senha, matricula,tipo);
 		this.especialidade = especialidade;
 	}
 	

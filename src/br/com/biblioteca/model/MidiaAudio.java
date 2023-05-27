@@ -1,6 +1,6 @@
 package br.com.biblioteca.model;
 
-public class MidiaAudio {
+public class MidiaAudio extends Obra{
     
     private String assunto;
     private String tamanho;

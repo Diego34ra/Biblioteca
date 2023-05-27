@@ -2,7 +2,7 @@ package br.com.biblioteca.model;
 
 import java.io.Serializable;
 
-public class Fotografia implements Serializable{
+public class Fotografia extends Obra implements Serializable{
     
     private int quantidade;
     private String area;

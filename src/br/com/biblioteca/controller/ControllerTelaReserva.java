@@ -6,12 +6,10 @@ package br.com.biblioteca.controller;
 
 import biblioteca.Alertas;
 import biblioteca.Global;
-import br.com.biblioteca.model.Reserva;
 import br.com.biblioteca.model.Funcionario;
-import br.com.biblioteca.model.Livro;
+import br.com.biblioteca.model.Obra;
 import br.com.biblioteca.model.Reserva;
 import br.com.biblioteca.model.Usuario;
-import br.com.biblioteca.services.ReservaServices;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -42,7 +40,7 @@ public class ControllerTelaReserva implements Initializable{
     private TableView<Reserva> tbReserva;
     private final TableColumn cellReservaId = new TableColumn("Código");
     private final TableColumn<Reserva,Usuario> cellReservaUsuario = new TableColumn("Usuario");
-    private final TableColumn<Reserva,Livro> cellReservaLivro = new TableColumn("Livro");
+    private final TableColumn<Reserva,Obra> cellReservaObra = new TableColumn("Obra");
     private final TableColumn<Reserva,Reserva> cellReservaDevolver = new TableColumn("Deletar");
 
     @FXML
@@ -56,10 +54,10 @@ public class ControllerTelaReserva implements Initializable{
         ObservableList<Reserva> obj = null;
         switch (cbConsulta.getSelectionModel().getSelectedItem()) {
             case "Todos":
-                obj = FXCollections.observableArrayList(ReservaServices.findAll());
+//                obj = FXCollections.observableArrayList(ReservaServices.findAll());
                 break;
             case "Código":
-                obj = FXCollections.observableArrayList(ReservaServices.findById(txConsulta.getText()));
+//                obj = FXCollections.observableArrayList(ReservaServices.findById(txConsulta.getText()));
                 break;
             default:
                 throw new AssertionError();
@@ -72,9 +70,9 @@ public class ControllerTelaReserva implements Initializable{
         formataTabelaAcervo();
         tbReserva.setItems(list);
         if(Global.usuario instanceof Funcionario){
-           tbReserva.getColumns().addAll(cellReservaId,cellReservaUsuario,cellReservaLivro,cellReservaDevolver); 
+           tbReserva.getColumns().addAll(cellReservaId,cellReservaUsuario,cellReservaObra,cellReservaDevolver); 
         } else {
-            tbReserva.getColumns().addAll(cellReservaId,cellReservaUsuario,cellReservaLivro,cellReservaDevolver); 
+            tbReserva.getColumns().addAll(cellReservaId,cellReservaUsuario,cellReservaObra,cellReservaDevolver); 
         }
     }
     
@@ -108,7 +106,6 @@ public class ControllerTelaReserva implements Initializable{
                 @Override
                 protected void updateItem( Usuario item, boolean empty) {
                    super.updateItem(item, empty);
-//                    System.out.println("nome = "+ item.getNome());
                    if(item == null|| empty) {
                        setText("");
                        setGraphic(null);
@@ -121,25 +118,25 @@ public class ControllerTelaReserva implements Initializable{
         cellReservaUsuario.setStyle("-fx-alignment: center;");
         
         
-        cellReservaLivro.setMinWidth(200);
-        cellReservaLivro.setPrefWidth(340);
-        cellReservaLivro.setResizable(false);
-        cellReservaLivro.setCellValueFactory (new PropertyValueFactory <> ( "livro" ));
-        cellReservaLivro.setCellFactory( col -> {              
-            return new TableCell<Reserva, Livro>() {
+        cellReservaObra.setMinWidth(200);
+        cellReservaObra.setPrefWidth(340);
+        cellReservaObra.setResizable(false);
+        cellReservaObra.setCellValueFactory (new PropertyValueFactory <> ( "obra" ));
+        cellReservaObra.setCellFactory( col -> {              
+            return new TableCell<Reserva, Obra>() {
                 @Override
-                protected void updateItem( Livro item, boolean empty) {
+                protected void updateItem( Obra item, boolean empty) {
                    super.updateItem(item, empty);
                    if(item == null|| empty) {
                        setText("");
                        setGraphic(null);
                    }else {
-                       setText(item.getTitulo());
+                       setText(item.getNome());
                    }
                 }
             };
          });
-        cellReservaLivro.setStyle("-fx-alignment: center;");
+        cellReservaObra.setStyle("-fx-alignment: center;");
         
         cellReservaDevolver.setMinWidth(50);
         cellReservaDevolver.setPrefWidth(90);
@@ -169,8 +166,7 @@ public class ControllerTelaReserva implements Initializable{
                     } else {
                         botao.setOnAction(event -> 
                             { 
-                                ReservaServices.deleteById(getTableView().getItems().get(getIndex()).getCodigo());
-                                Alertas.alertaInformacao("Sucesso", "Renovação realizada com sucesso.");
+                                
                             }
                         );
                         setGraphic(botao);
@@ -179,103 +175,6 @@ public class ControllerTelaReserva implements Initializable{
             };
             return cell ;
         });
-        
-//        cellAcervoDetalhes.setMinWidth(50);
-//        cellAcervoDetalhes.setPrefWidth(80);
-//        cellAcervoDetalhes.setResizable(false);
-//        cellAcervoDetalhes.setStyle("-fx-alignment: center;");
-//        cellAcervoDetalhes.setCellFactory(col -> {
-//            TableCell<Obra, Obra> cell = new TableCell<Obra, Obra>() {
-//                @Override
-//                public void updateItem(Obra item, boolean empty) {
-//                    final Tooltip infAjuda = new Tooltip();
-//                    infAjuda.setText("Buscar detalhe da obra");
-//                    Button botao = new Button();
-//                    File file = new File("C:/Users/Developer/Documents/GitHub/Biblioteca/img/detalhe.png");
-//                    Image imagem = new Image(file.toURI().toString());
-//                    ImageView imv = new ImageView();
-//                    {
-//                        imv.setFitHeight(20l);
-//                        imv.setFitWidth(20l);
-//                    }
-//                    imv.setImage(imagem);
-//                    botao.setPickOnBounds(true);
-//                    botao.setGraphic(imv);
-//                    botao.setAlignment(Pos.CENTER);
-//                    super.updateItem(item, empty);
-//                    if (empty) {
-//                        setGraphic(null);
-//                    } else {
-//                        botao.setOnAction(event -> 
-//                            { 
-//                                Obra obra = getTableView().getItems().get(getIndex());
-//                                switch (getTableView().getItems().get(getIndex()).getTipo()) {
-//                                    case "Livro":
-//                                        Global.livro = (Livro) obra;
-//                                        TelaLivro tela = new TelaLivro();
-//                                        try {
-//                                            tela.start(new Stage());
-//                                            TelaLivro.getStage().show();
-//                                        } catch (Exception ex) {
-//                                            System.out.println("Exception ao entrar na tela de detalhes\n"+ex);
-//                                        } 
-//                                        break;
-//                                    case "Mídia Áudio":
-//                                        break;
-//                                    case "Fotografia":
-//                                        break;
-//                                    default:
-//                                        throw new AssertionError();
-//                                }
-//                            }
-//                        );
-//                        setGraphic(botao);
-//                    }
-//                }
-//            };
-//            return cell ;
-//        });
-        
-//        cellAcervoDelete.setMinWidth(50);
-//        cellAcervoDelete.setPrefWidth(80);
-//        cellAcervoDelete.setResizable(false);
-//        cellAcervoDelete.setStyle("-fx-alignment: center;");
-//        cellAcervoDelete.setCellFactory(col -> {
-//            TableCell<Obra, Obra> cell = new TableCell<Obra, Obra>() {
-//                @Override
-//                public void updateItem(Obra item, boolean empty) {
-//                    final Tooltip infAjuda = new Tooltip();
-//                    infAjuda.setText("Deletar obra");
-//                    Button botao = new Button();
-//                    File file = new File("C:/Users/Developer/Documents/GitHub/Biblioteca/img/delete.png");
-//                    Image imagem = new Image(file.toURI().toString());
-//                    ImageView imv = new ImageView();
-//                    {
-//                        imv.setFitHeight(20l);
-//                        imv.setFitWidth(20l);
-//                    }
-//                    imv.setImage(imagem);
-//                    botao.setPickOnBounds(true);
-//                    botao.setGraphic(imv);
-//                    botao.setAlignment(Pos.CENTER);
-//                    super.updateItem(item, empty);
-//                    if (empty) {
-//                        setGraphic(null);
-//                    } else {
-//                        botao.setOnAction(event -> 
-//                            { 
-//                                Obra obra = getTableView().getItems().get(getIndex());
-//                                ObraServices.deleteById(obra.getCodigo());
-//                                ObservableList<Obra> obj = FXCollections.observableArrayList(ObraServices.findAll());
-//                                carregaTabelaAcervo(obj);
-//                            }
-//                        );
-//                        setGraphic(botao);
-//                    }
-//                }
-//            };
-//            return cell ;
-//        });
             
     }
     

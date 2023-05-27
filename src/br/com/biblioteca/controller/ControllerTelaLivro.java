@@ -6,13 +6,13 @@ package br.com.biblioteca.controller;
 
 import biblioteca.Alertas;
 import biblioteca.Global;
+import br.com.biblioteca.dao.EmprestimoDao;
 import br.com.biblioteca.model.Emprestimo;
 import br.com.biblioteca.model.Livro;
-import br.com.biblioteca.model.Obra;
+import br.com.biblioteca.dao.ObraDao;
+import br.com.biblioteca.dao.LivroDao;
+import br.com.biblioteca.dao.ReservaDao;
 import br.com.biblioteca.model.Reserva;
-import br.com.biblioteca.services.EmprestimoServices;
-import br.com.biblioteca.services.ObraServices;
-import br.com.biblioteca.services.ReservaServices;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -50,18 +50,16 @@ public class ControllerTelaLivro implements Initializable{
     private final TableColumn cellLivroStatus = new TableColumn("Status");
     private final TableColumn<Livro,Livro> cellLivroEmprestar = new TableColumn("Emprestimo");
     private final TableColumn<Livro,Livro> cellLivroRenovar = new TableColumn("Renovar");
-
+    
+    private final LivroDao livroDao = new LivroDao();
+    private final ObraDao obraDao = new ObraDao();
+    private final EmprestimoDao emprestimoDao = new EmprestimoDao();
+    private final ReservaDao reservaDao = new ReservaDao();
+    private Livro livro = new Livro();
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        List<Livro> livros = new ArrayList<>();
-        if (Global.livro.isEmprestimo()) {
-            Global.livro.setStatus("Livre");
-        } else {
-            Global.livro.setStatus("Emprestado");
-        }
-        livros.add(Global.livro);
-        carregaTabelaAcervo(FXCollections.observableArrayList(livros));
-        
+        getTabela();
     }
     
     private void carregaTabelaAcervo(ObservableList<Livro> list){
@@ -77,9 +75,9 @@ public class ControllerTelaLivro implements Initializable{
         cellLivroId.setResizable(false);
         cellLivroId.setCellValueFactory (new PropertyValueFactory <> ( "codigo" ));
         cellLivroId.setCellFactory( cell -> {              
-            return new TableCell<AbstractMethodError, Long>() {
+            return new TableCell<AbstractMethodError, Integer>() {
                 @Override
-                protected void updateItem( Long item, boolean empty) {
+                protected void updateItem( Integer item, boolean empty) {
                    super.updateItem(item, empty);
                    if(item == null|| empty) {
                        setText("");
@@ -168,17 +166,16 @@ public class ControllerTelaLivro implements Initializable{
                     } else {
                         botao.setOnAction(event -> 
                             { 
-                                if (Global.livro.isEmprestimo()) {
-                                    Emprestimo emprestimo = new Emprestimo(Global.livro,Global.usuario); 
-                                    EmprestimoServices.createEmprestimo(emprestimo);
-                                    Global.livro.setEmprestimo(false);
-                                    ObraServices.deleteById(Global.livro.getCodigo());
-                                    ObraServices.createObra(Global.livro);
+                                if (livro.getEmprestimo()) {
+                                    Emprestimo emprestimo = new Emprestimo(livro,Global.usuario); 
+                                    emprestimoDao.create(emprestimo);
+                                    obraDao.updateEmprestimo(livro.getCodigo(), false);
                                     Alertas.alertaInformacao("Sucesso", "Emprestimo realizado com sucesso.");
+                                    getTabela();
                                 } else { 
                                     if (Alertas.confirmacao("Livro já emprestado!", "Deseja fazer reserva do livro?") == 1) {
-                                        Reserva reserva = new Reserva(Global.livro,Global.usuario);
-                                        ReservaServices.create(reserva);
+                                        Reserva reserva = new Reserva(livro,Global.usuario);
+                                        reservaDao.create(reserva);
                                         Alertas.alertaInformacao("Sucesso", "Reserva realizada com sucesso.");
                                     }
                                 }
@@ -219,12 +216,7 @@ public class ControllerTelaLivro implements Initializable{
                     } else {
                         botao.setOnAction(event -> 
                             { 
-                                if (!Global.livro.isEmprestimo()) {
-                                    Global.livro.setEmprestimo(true);
-                                    ObraServices.deleteById(Global.livro.getCodigo());
-                                    ObraServices.createObra(Global.livro);
-                                    Alertas.alertaInformacao("Sucesso", "Renovação realizada com sucesso.");
-                                } 
+                                
                             }
                         );
                         setGraphic(botao);
@@ -234,5 +226,12 @@ public class ControllerTelaLivro implements Initializable{
             return cell ;
         });
             
+    }
+    
+    public void getTabela(){
+        List<Livro> livros = new ArrayList<>();
+        livro = livroDao.findById(Global.obra.getCodigo());
+        livros.add(livro);
+        carregaTabelaAcervo(FXCollections.observableArrayList(livros));
     }
 }

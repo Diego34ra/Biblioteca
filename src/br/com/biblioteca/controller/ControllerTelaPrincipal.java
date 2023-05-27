@@ -7,8 +7,8 @@ package br.com.biblioteca.controller;
 
 import biblioteca.Alertas;
 import biblioteca.Global;
+import br.com.biblioteca.dao.UsuarioDao;
 import br.com.biblioteca.model.Usuario;
-import br.com.biblioteca.services.UsuarioServices;
 import br.com.biblioteca.view.TelaInformacoes;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -42,9 +42,12 @@ public class ControllerTelaPrincipal implements Initializable {
     @FXML
     private Button btSair;
     
+    private UsuarioDao usuarioDao = new UsuarioDao();
+    
     @FXML
     void logar(){
-        Usuario usuario  = UsuarioServices.findById(txMatricula.getText());
+//        Usuario usuario  = UsuarioServices.findById(txMatricula.getText());
+        Usuario usuario  = usuarioDao.findById(Integer.valueOf(txMatricula.getText()));
         if(txMatricula.getText().equals(usuario.getMatricula().toString())){
             if (usuario.getSenha().equals(txSenha.getText())) {
                 Global.usuario = usuario;

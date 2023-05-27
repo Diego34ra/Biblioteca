@@ -1,17 +1,15 @@
 package br.com.biblioteca.controller;
 
 import biblioteca.Alertas;
+import br.com.biblioteca.dao.UsuarioDao;
 import br.com.biblioteca.model.Estudante;
 import br.com.biblioteca.model.Usuario;
-import br.com.biblioteca.services.UsuarioServices;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -44,6 +42,8 @@ public class ControllerTelaCadastroEstudante implements Initializable {
 
     @FXML
     private TextField txCurso;
+    
+    private final UsuarioDao usuarioDao = new UsuarioDao();
 
     @FXML
     void setFeminino( ) {
@@ -69,12 +69,11 @@ public class ControllerTelaCadastroEstudante implements Initializable {
         } else{
             sexo = "Feminino";
         }
-        System.out.println("nome do estudante ="+txNome.getText());
         Usuario usuario = new Estudante(Integer.parseInt(txIdade.getText()), txNome.getText(),
                                              sexo, txTelefone.getText(), txCurso.getText(),
-                                        txSenha.getText(),Long.parseLong(txMatriculo.getText()));
+                                        txSenha.getText(),Integer.valueOf(txMatriculo.getText()),"Estudante");
         
-        if(UsuarioServices.create(usuario)){
+        if(usuarioDao.create(usuario)){
             Alertas.alertaInformacao("Sucesso!", "Usuário cadastrado com sucesso!");
             //Fecha a tela atual
             Stage stage = (Stage) Pane.getScene().getWindow();

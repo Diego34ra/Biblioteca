@@ -5,9 +5,9 @@
 package br.com.biblioteca.controller;
 
 import biblioteca.Alertas;
+import br.com.biblioteca.dao.ObraDao;
 import br.com.biblioteca.model.Livro;
 import br.com.biblioteca.model.Obra;
-import br.com.biblioteca.services.ObraServices;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -53,6 +53,8 @@ public class ControllerTelaCadastroLivro implements Initializable{
 
     @FXML
     private TextField txEdicao;
+    
+    private ObraDao obraDao = new ObraDao();
 
     @FXML
     void Salvar() {
@@ -64,9 +66,11 @@ public class ControllerTelaCadastroLivro implements Initializable{
                                  txEditora.getText(), Integer.parseInt(txAno.getText()),
                                  Integer.parseInt(txEdicao.getText()), Integer.parseInt(txNumFolhas.getText()),
                                  digital);
-        System.out.println("titulo livro = "+ livro.getTitulo());
         Obra obra = (Obra) livro;
-        if(ObraServices.createObra(obra)){
+        
+        
+//        if(ObraServices.createObra(obra)){
+        if(obraDao.create(obra)){
             Alertas.alertaInformacao("Sucesso!", "Livro cadastrado com sucesso!");
             //Fecha a tela atual
             Stage stage = (Stage) Pane.getScene().getWindow();

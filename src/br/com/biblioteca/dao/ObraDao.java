@@ -5,6 +5,7 @@
 package br.com.biblioteca.dao;
 
 import br.com.biblioteca.connection.ConnectionBD;
+import br.com.biblioteca.model.Fotografia;
 import br.com.biblioteca.model.Livro;
 import br.com.biblioteca.model.Obra;
 import java.io.IOException;
@@ -157,10 +158,11 @@ public class ObraDao {
             LivroDao livroDao = new LivroDao();
             livroDao.create((Livro) obra);
         } 
-//        else if(obra instanceof MidiaAudio){
-//            EstudanteDao estudanteDao = new EstudanteDao();
-//            estudanteDao.create((Estudante) usuario);
-//        } else if(obra instanceof Fotografia){
+        else if(obra instanceof Fotografia){
+            FotografiaDao fotografiaDao = new FotografiaDao();
+            fotografiaDao.create((Fotografia) obra);
+        } 
+//        else if(obra instanceof Fotografia){
 //            FuncionarioDao funcionarioDao = new FuncionarioDao();
 //            funcionarioDao.create((Funcionario) usuario);
 //        }

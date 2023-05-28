@@ -6,13 +6,12 @@ package br.com.biblioteca.controller;
 
 import biblioteca.Alertas;
 import br.com.biblioteca.dao.ObraDao;
-import br.com.biblioteca.model.Livro;
+import br.com.biblioteca.model.Fotografia;
 import br.com.biblioteca.model.Obra;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -22,61 +21,45 @@ import javafx.stage.Stage;
  *
  * @author Diego
  */
-public class ControllerTelaCadastroLivro implements Initializable{
-    
-    @FXML
-    private AnchorPane Pane;
+public class ControllerTelaCadastroFotografia implements Initializable{
     
     @FXML
     private CheckBox cbFisica;
 
     @FXML
     private CheckBox cbDigital;
+    @FXML
+    private AnchorPane Pane;
 
     @FXML
-    private Button btSalvar;
+    private TextField txArea;
     
     @FXML
-    private TextField txNumFolhas;
+    private TextField txTamanho;
 
     @FXML
-    private TextField txTitulo;
-
-    @FXML
-    private TextField txAno;
-
-    @FXML
-    private TextField txAutores;
-
-    @FXML
-    private TextField txEditora;
-
-    @FXML
-    private TextField txEdicao;
+    private TextField txNome;
     
     private final ObraDao obraDao = new ObraDao();
 
     @FXML
-    void Salvar() {
+    void Salvar( ) {
         Boolean digital = false;
         if(cbDigital.isSelected()){
             digital = true;
         }
-        Livro livro = new Livro("Livro", txAutores.getText(), txTitulo.getText(), txTitulo.getText(),
-                                 txEditora.getText(), Integer.parseInt(txAno.getText()),
-                                 Integer.parseInt(txEdicao.getText()), Integer.parseInt(txNumFolhas.getText()),
-                                 digital);
-        Obra obra = (Obra) livro;
         
+        Fotografia fotografia = new Fotografia(txTamanho.getText(),txArea.getText(),
+                                               "Fotografia",digital,txNome.getText());
+        Obra obra = (Obra) fotografia;
         
-//        if(ObraServices.createObra(obra)){
         if(obraDao.create(obra)){
-            Alertas.alertaInformacao("Sucesso!", "Livro cadastrado com sucesso!");
+            Alertas.alertaInformacao("Sucesso!", "Fotografia cadastrado com sucesso!");
             //Fecha a tela atual
             Stage stage = (Stage) Pane.getScene().getWindow();
             stage.close();
         } else{
-            Alertas.alertaInformacao("Erro!", "Erro ao cadastrar o livro!");
+            Alertas.alertaInformacao("Erro!", "Erro ao cadastrar o Fotografia!");
         }
     }
     
@@ -102,4 +85,5 @@ public class ControllerTelaCadastroLivro implements Initializable{
         cbFisica.setSelected(true);
     }
 
+    
 }

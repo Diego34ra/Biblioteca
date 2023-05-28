@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="Pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="333.0" prefWidth="317.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.biblioteca.controller.ControllerTelaCadastroFotografia">
+   <children>
+      <TextField fx:id="txNome" alignment="CENTER" layoutX="85.0" layoutY="98.0" promptText="Nome" AnchorPane.leftAnchor="85.0" AnchorPane.topAnchor="98.0" />
+      <TextField fx:id="txArea" alignment="CENTER" layoutX="85.0" layoutY="140.0" promptText="Area" AnchorPane.leftAnchor="85.0" />
+      <TextField fx:id="txTamanho" alignment="CENTER" layoutX="85.0" layoutY="182.0" promptText="Tamanho" AnchorPane.leftAnchor="85.0" />
+      <CheckBox fx:id="cbFisica" layoutX="84.0" layoutY="240.0" mnemonicParsing="false" onAction="#setFisica" text="Física" />
+      <CheckBox fx:id="cbDigital" layoutX="159.0" layoutY="240.0" mnemonicParsing="false" onAction="#setDigital" text="Digital" />
+      <Label layoutX="84.0" layoutY="216.0" text="Tipo de Fotografia:" />
+      <Button fx:id="btSalvar" layoutX="234.0" layoutY="278.0" mnemonicParsing="false" onAction="#Salvar" text="Salvar" AnchorPane.bottomAnchor="30.0" />
+      <Label layoutX="87.0" layoutY="40.0" text="Cadastrar Fotografia" AnchorPane.topAnchor="40.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

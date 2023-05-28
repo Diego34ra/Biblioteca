@@ -7,6 +7,7 @@ package br.com.biblioteca.controller;
 import biblioteca.Global;
 import br.com.biblioteca.dao.ObraDao;
 import br.com.biblioteca.model.Obra;
+import br.com.biblioteca.view.TelaFotografia;
 import br.com.biblioteca.view.TelaLivro;
 import java.io.File;
 import java.net.URL;
@@ -144,9 +145,9 @@ public class ControllerTelaAcervo implements Initializable{
                                 Global.obra = obra;
                                 switch (obra.getTipo()) {
                                     case "Livro":
-                                        TelaLivro tela = new TelaLivro();
+                                        TelaLivro telaLivro = new TelaLivro();
                                         try {
-                                            tela.start(new Stage());
+                                            telaLivro.start(new Stage());
                                             TelaLivro.getStage().show();
                                         } catch (Exception ex) {
                                             System.out.println("Exception ao entrar na tela de detalhes\n"+ex);
@@ -155,6 +156,13 @@ public class ControllerTelaAcervo implements Initializable{
                                     case "Mídia Áudio":
                                         break;
                                     case "Fotografia":
+                                        TelaFotografia telaFotografia = new TelaFotografia();
+                                        try {
+                                            telaFotografia.start(new Stage());
+                                            TelaFotografia.getStage().show();
+                                        } catch (Exception ex) {
+                                            System.out.println("Exception ao entrar na tela de detalhes\n"+ex);
+                                        }
                                         break;
                                     default:
                                         throw new AssertionError();

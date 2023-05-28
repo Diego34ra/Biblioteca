@@ -2,6 +2,7 @@ package br.com.biblioteca.controller;
 
 import biblioteca.Global;
 import br.com.biblioteca.model.Funcionario;
+import br.com.biblioteca.view.TelaCadastroFotografia;
 import br.com.biblioteca.view.TelaCadastroFuncionario;
 import br.com.biblioteca.view.TelaCadastroLivro;
 import br.com.biblioteca.view.TelaCadastroProfessor;
@@ -105,6 +106,17 @@ public class ControllerTelaInformacoes implements Initializable {
             TelaInformacoes.getStage().show();
         } catch (Exception ex) {
             System.out.println("Exception ao entrar no menu principal\n"+ex);
+        } 
+    }
+    
+    @FXML
+    void cadastrarFotografia() {
+        TelaCadastroFotografia tela = new TelaCadastroFotografia();
+        try {
+            tela.start(new Stage());
+            TelaCadastroFotografia.getStage().show();
+        } catch (Exception ex) {
+            System.out.println("Exception ao entrar na tela de cadastrar fotografia \n"+ex);
         } 
     }
 		

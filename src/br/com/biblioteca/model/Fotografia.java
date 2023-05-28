@@ -4,15 +4,24 @@ import java.io.Serializable;
 
 public class Fotografia extends Obra implements Serializable{
     
-    private int quantidade;
+    private String tamanho;
+    private String status;
     private String area;
 
-    public int getQuantidade() {
-        return quantidade;
+    public String getStatus() {
+        return status;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getTamanho() {
+        return tamanho;
+    }
+
+    public void setTamanho(String tamanho) {
+        this.tamanho = tamanho;
     }
 
     public String getArea() {
@@ -23,13 +32,20 @@ public class Fotografia extends Obra implements Serializable{
         this.area = area;
     }
 
-    public Fotografia(int quantidade, String area) {
-        this.quantidade = quantidade;
+    public Fotografia(String quantidade, String area) {
+        this.tamanho = quantidade;
         this.area = area;
     }
 
     public Fotografia() {
     }
+
+    public Fotografia(String tamanho, String area, String tipo, Boolean digital, String nome) {
+        super(tipo, digital, nome);
+        this.tamanho = tamanho;
+        this.area = area;
+    }
+    
     
     
 }

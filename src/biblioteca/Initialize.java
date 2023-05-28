@@ -44,7 +44,7 @@ public class Initialize {
             createTable("CREATE TABLE `fotografia` (\n" +
                         "  `codObra` int(11) NOT NULL,\n" +
                         "  `area` varchar(45) NOT NULL,\n" +
-                        "  `quantidade` int(11) NOT NULL,\n" +
+                        "  `tamanho` varchar(45) NOT NULL,\n" +
                         "  PRIMARY KEY (`codObra`),\n" +
                         "  CONSTRAINT `Obra_Fotografia` FOREIGN KEY (`codObra`) REFERENCES `obra` (`codObra`) ON DELETE CASCADE ON UPDATE CASCADE\n" +
                         ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");

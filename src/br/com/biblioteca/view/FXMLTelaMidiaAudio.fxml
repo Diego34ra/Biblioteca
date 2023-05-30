@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="248.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.361" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.biblioteca.controller.ControllerTelaMidiaAudio">
+   <children>
+      <TableView fx:id="tbMidiaAudio" layoutX="21.0" layoutY="30.0" prefHeight="189.0" prefWidth="958.0" />
+   </children>
+</AnchorPane>

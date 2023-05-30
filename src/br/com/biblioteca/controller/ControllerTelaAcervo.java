@@ -9,6 +9,7 @@ import br.com.biblioteca.dao.ObraDao;
 import br.com.biblioteca.model.Obra;
 import br.com.biblioteca.view.TelaFotografia;
 import br.com.biblioteca.view.TelaLivro;
+import br.com.biblioteca.view.TelaMidiaAudio;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -154,6 +155,13 @@ public class ControllerTelaAcervo implements Initializable{
                                         } 
                                         break;
                                     case "Mídia Áudio":
+                                        TelaMidiaAudio telaMidiaAudio = new TelaMidiaAudio();
+                                        try {
+                                            telaMidiaAudio.start(new Stage());
+                                            TelaMidiaAudio.getStage().show();
+                                        } catch (Exception ex) {
+                                            System.out.println("Exception ao entrar na tela de detalhes\n"+ex);
+                                        }
                                         break;
                                     case "Fotografia":
                                         TelaFotografia telaFotografia = new TelaFotografia();

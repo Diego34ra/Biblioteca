@@ -5,6 +5,7 @@ import br.com.biblioteca.model.Funcionario;
 import br.com.biblioteca.view.TelaCadastroFotografia;
 import br.com.biblioteca.view.TelaCadastroFuncionario;
 import br.com.biblioteca.view.TelaCadastroLivro;
+import br.com.biblioteca.view.TelaCadastroMidiaAudio;
 import br.com.biblioteca.view.TelaCadastroProfessor;
 import br.com.biblioteca.view.TelaCadastroUser;
 import br.com.biblioteca.view.TelaInformacoes;
@@ -117,6 +118,17 @@ public class ControllerTelaInformacoes implements Initializable {
             TelaCadastroFotografia.getStage().show();
         } catch (Exception ex) {
             System.out.println("Exception ao entrar na tela de cadastrar fotografia \n"+ex);
+        } 
+    }
+    
+    @FXML
+    void getMidiaAudio(ActionEvent event) {
+        TelaCadastroMidiaAudio tela = new TelaCadastroMidiaAudio();
+        try {
+            tela.start(new Stage());
+            TelaCadastroMidiaAudio.getStage().show();
+        } catch (Exception ex) {
+            System.out.println("Exception ao entrar na tela de cadastrar mídia áudio \n"+ex);
         } 
     }
 		

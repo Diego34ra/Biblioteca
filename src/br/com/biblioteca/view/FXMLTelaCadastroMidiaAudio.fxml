@@ -7,16 +7,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="333.0" prefWidth="317.0" xmlns="http://javafx.com/javafx/8.0.361" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.biblioteca.controller.ControllerTelaCadastroFotografia">
+<AnchorPane fx:id="Pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="333.0" prefWidth="317.0" xmlns="http://javafx.com/javafx/8.0.361" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.biblioteca.controller.ControllerTelaCadastroMidiaAudio">
    <children>
       <TextField fx:id="txNome" alignment="CENTER" layoutX="85.0" layoutY="116.0" promptText="Nome" />
-      <TextField fx:id="txArea" alignment="CENTER" layoutX="85.0" layoutY="158.0" promptText="Area" />
-      <TextField fx:id="txTamanho" alignment="CENTER" layoutX="85.0" layoutY="200.0" promptText="Tamanho" />
+      <TextField fx:id="txAssunto" alignment="CENTER" layoutX="85.0" layoutY="158.0" promptText="Assunto" />
+      <TextField fx:id="txDuracao" alignment="CENTER" layoutX="85.0" layoutY="200.0" promptText="Duração" />
       <CheckBox fx:id="cbFisica" layoutX="84.0" layoutY="258.0" mnemonicParsing="false" onAction="#setFisica" text="Física" />
       <CheckBox fx:id="cbDigital" layoutX="159.0" layoutY="258.0" mnemonicParsing="false" onAction="#setDigital" text="Digital" />
       <Label layoutX="84.0" layoutY="234.0" text="Tipo de Fotografia:" />
       <Button fx:id="btSalvar" layoutX="234.0" layoutY="278.0" mnemonicParsing="false" onAction="#Salvar" text="Salvar" AnchorPane.bottomAnchor="30.0" />
-      <Label layoutX="87.0" layoutY="58.0" text="Cadastrar Fotografia">
+      <Label layoutX="80.0" layoutY="57.0" text="Cadastrar Mídia Áudio">
          <font>
             <Font size="16.0" />
          </font>
